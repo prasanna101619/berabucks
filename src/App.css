@@ -1,0 +1,276 @@
+/*Latest Update*/
+body {
+  color: black;
+  font-family: Arial, sans-serif;
+}
+
+.App {
+  text-align: center;
+  font-family: 'Comic Sans MS', Courier New, Courier, monospace, Tahoma, sans-serif;
+  background: radial-gradient(circle, #b2d8f7, #6eb5ff);
+  padding: 20px;
+  box-sizing: border-box;
+  min-height: 100vh;
+}
+
+.menu-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.start-game-button,
+.leaderboard-button {
+  margin: 10px;
+  padding: 12px 24px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  background: #6eb5ff;
+  color: #fff;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.start-game-button:hover,
+.leaderboard-button:hover {
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.35);
+}
+.game-container {
+  position: relative;
+  margin: 50px auto;
+  overflow: hidden;
+  width: 500px; /* Adjust as needed */
+  height: 250px; /* Adjust as needed */
+  border-bottom: 1px solid #ddd;
+  background-color: #fafcfb;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.bera {
+  position: absolute;
+  bottom: 5px;
+  left: 50px;
+  width: 40px;
+  height: 43px;
+  background-color: green;
+}
+
+.cactus {
+  position: absolute;
+  bottom: 0;
+  right: -30px;
+  width: 30px;
+  height: 50px;
+  background-color: inherit;
+}
+
+.score {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333; /* Matching text color */
+  margin-top: 20px;
+}
+
+.bottom-navbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: radial-gradient(circle, #b2d8f7, #6eb5ff);
+  padding: 15px 0;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nav-item img {
+  width: 36px;
+  height: 36px;
+  margin-bottom: 8px;
+}
+
+.nav-item span {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.game-over {
+  font-size: 48px;
+  color: red;
+  margin-top: 20px;
+}
+
+.player-name {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.game-stats {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 5px 10px;
+  border-radius: 20px;
+  z-index: 10;
+}
+
+.airdrop-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+}
+
+.game-stats span {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  color: black;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  z-index: 1000;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.popup div:first-child {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.popup div:last-child {
+  font-size: 18px;
+}
+
+.popup.coming-soon {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.bottom-navbar .nav-item {
+  cursor: pointer;
+}
+
+.leaderboard-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  max-height: 80%;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.leaderboard-popup h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.close-icon {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+  line-height: 1;
+}
+
+.close-icon:hover {
+  color: #000;
+}
+
+.player-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+}
+
+.leaderboard-header,
+.leaderboard-row {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 10px;
+  padding: 5px 0;
+}
+
+.leaderboard-header {
+  font-weight: bold;
+  border-bottom: 2px solid #ccc;
+  margin-bottom: 10px;
+}
+
+.leaderboard-table {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.leaderboard-row:nth-child(even) {
+  background-color: #f0f0f0;
+}
+
+.leaderboard-popup button {
+  display: block;
+  margin: 20px auto 0;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.leaderboard-popup button:hover {
+  background-color: #0056b3;
+}
+
+.game-stats-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.stat-item {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin: 5px 0;
+}
+
+/* ... rest of your CSS ... */

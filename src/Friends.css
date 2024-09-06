@@ -1,0 +1,73 @@
+.invite-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 60px); /* Adjust for bottom navbar */
+    background-color: inherit;
+}
+
+.invite-container {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+}
+
+.invite-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.invite-icon {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+}
+
+.invite-link {
+    display: flex;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.invite-link input[type="text"] {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+}
+
+.invite-link button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+.invite-link button:hover {
+    background-color: #0056b3;
+}
+
+.copied-popup {
+    position: fixed;
+    bottom: 70px; /* Adjust to appear above bottom navbar */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    animation: fadeInOut 2s ease-in-out;
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0; }
+    10%, 90% { opacity: 1; }
+}
