@@ -205,7 +205,7 @@ function GameComponent() {
   };
 
   return (
-    <div className="App" style={"font-family='Comic Sans MS', Arial, sans-serif;"}>
+    <div className="App" style={{ fontFamily: "'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif" }}>
       <div className="player-name-container">
         <span className="player-name-text">Player Name: {playerName}</span>
       </div>
