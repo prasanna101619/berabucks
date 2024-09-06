@@ -261,6 +261,10 @@ body {
 }
 
 @media (max-width: 480px) {
+  body{
+    overflow: hidden;
+  }
+
   .game-container {
     height: 150px; /* Further adjustment for small mobile screens */
   }
