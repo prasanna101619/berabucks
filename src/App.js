@@ -211,7 +211,6 @@ function GameComponent() {
       </div>
       <div 
         className="game-container" 
-        style={{ width: GAME_WIDTH, height: GAME_HEIGHT }}
         ref={gameContainerRef}
       >
         <div className="game-stats">
