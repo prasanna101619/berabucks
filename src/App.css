@@ -235,7 +235,7 @@ html {
 
 @media (max-width: 1024px) {
   .game-container {
-    height: 40vh;
+    height: 30vh;
     width: 85%;
   }
 
@@ -260,7 +260,7 @@ html {
   }
 
   .game-container {
-    height: 45vh;
+    height: 35vh;
     width: 80%;
   }
 
@@ -285,7 +285,7 @@ html {
 
 @media (max-width: 480px) {
   .game-container {
-    height: 50vh;
+    height: 30vh;
     width: 85%;
   }
 

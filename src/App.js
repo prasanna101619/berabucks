@@ -132,7 +132,7 @@ function GameComponent() {
 
           setTimeout(() => {
             setShowPopup(false);
-          }, 3000);
+          }, 1000); // Changed from 3000 to 500 milliseconds
         }
 
         if (cactusLeft < 0 && !cactusPassed) {
@@ -205,7 +205,7 @@ function GameComponent() {
   };
 
   return (
-    <div className="App">
+    <div className="App" style={"font-family='Comic Sans MS', Arial, sans-serif;"}>
       <div className="player-name-container">
         <span className="player-name-text">Player Name: {playerName}</span>
       </div>
