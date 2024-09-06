@@ -37,6 +37,7 @@ function GameComponent() {
   const [playerRank, setPlayerRank] = useState(0);
   const gameContainerRef = useRef(null);
   const bottomNavbarRef = useRef(null);
+  const [gameDimensions, setGameDimensions] = useState(getGameDimensions());
 
   const navigate = useNavigate();
 
