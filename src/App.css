@@ -11,8 +11,6 @@ body {
   padding: 20px;
   box-sizing: border-box;
   min-height: 100vh;
-  max-width: 100%;
-  overflow-x: hidden;
 }
 
 .menu-buttons {
@@ -59,7 +57,7 @@ body {
   left: 50px;
   width: 40px;
   height: 43px;
-  background-color: inherit;
+  background-color: green;
 }
 
 .cactus {
@@ -96,13 +94,12 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 0.8rem;
 }
 
 .nav-item img {
-  width: 24px;
-  height: 24px;
-  margin-bottom: 5px;
+  width: 36px;
+  height: 36px;
+  margin-bottom: 8px;
 }
 
 .nav-item span {
@@ -117,9 +114,9 @@ body {
 }
 
 .player-name {
-  font-size: 1rem;
+  font-size: 24px;
   font-weight: bold;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   text-align: center;
 }
 
@@ -262,42 +259,16 @@ body {
 
 .game-stats-container {
   display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  margin-top: 10px;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
   padding: 10px;
   border-radius: 10px;
 }
 
 .stat-item {
-  font-size: 0.9rem;
+  font-size: 16px;
   font-weight: bold;
   color: #333;
-  margin: 5px;
-}
-
-/* ... rest of your CSS ... */
-
-@media (max-width: 480px) {
-  .player-name {
-    font-size: 0.9rem;
-  }
-
-  .stat-item {
-    font-size: 0.8rem;
-  }
-
-  .menu-buttons button {
-    font-size: 0.9rem;
-    padding: 8px 16px;
-  }
-
-  .nav-item {
-    font-size: 0.7rem;
-  }
-
-  .nav-item img {
-    width: 20px;
-    height: 20px;
-  }
+  margin: 5px 0;
 }
