@@ -60,7 +60,7 @@ html {
   width: 90%;
   max-width: 600px; /* Fixed max width */
   height: 30vh; /* Proportional height */
-  background-color: yellow;
+  background-color: chocolate;
   border-radius: 8px;
   border-bottom: 1px solid #ddd;
   display: flex;
@@ -78,7 +78,7 @@ html {
   left: 10%; /* Adjusted position for better visibility */
   width: 40px;
   height: 43px;
-  background-color: #000; /* Assuming bera is a black character; change as needed */
+  background-color: inherit; /* Assuming bera is a black character; change as needed */
   z-index: 2; /* Ensure Bera is above other elements */
 }
 
@@ -88,7 +88,7 @@ html {
   right: 10%; /* Adjusted position for better visibility */
   width: 30px;
   height: 50px;
-  background-color: #008000; /* Assuming cactus is green; change as needed */
+  background-color: inherit; /* Assuming cactus is green; change as needed */
 }
 
 /* Game stats */
@@ -112,7 +112,7 @@ html {
 
 .game-stats span {
   font-size: 18px;
-  font-weight: bold;
+  font-weight: bold; /* Make text bold */
   color: #333;
 }
 
@@ -207,6 +207,7 @@ html {
   margin-bottom: 0.5em; /* Add some space between each line */
 }
 
+/* Leaderboard table styles */
 .leaderboard-header,
 .leaderboard-row {
   display: grid;
@@ -233,8 +234,8 @@ html {
 /* Responsive Design */
 @media (max-width: 1024px) {
   .game-container {
-    height: 25vh;
-    width:90%;
+    height: 40vh; /* Increase height */
+    width: 85%; /* Reduce width */
   }
 
   .nav-item img {
@@ -258,7 +259,7 @@ html {
   }
 
   .game-container {
-    height: 25vh; /* Increase height */
+    height: 45vh; /* Further increase height */
     width: 80%; /* Reduce width */
   }
 
@@ -283,7 +284,7 @@ html {
 
 @media (max-width: 480px) {
   .game-container {
-    height: 30vh; /* Further increase height for smaller screens */
+    height: 50vh; /* Further increase height for smaller screens */
     width: 85%; /* Slightly adjust width */
   }
 
