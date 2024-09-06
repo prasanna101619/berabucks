@@ -283,6 +283,7 @@ function GameComponent() {
             <div>Player Name: {playerName}</div>
             <div>Your MaxWin: {maxWin}</div>
           </div>
+
           <div className="leaderboard-header">
             <span>Rank</span>
             <span>Name</span>
