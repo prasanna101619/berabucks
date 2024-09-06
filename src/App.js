@@ -23,14 +23,14 @@ function GameComponent() {
   const [beraBottom, setBeraBottom] = useState(0);
   const [isJumping, setIsJumping] = useState(false);
   const [cactusLeft, setCactusLeft] = useState(GAME_WIDTH);
-  const [earnings, setEarnings] = useState(0);
-  const [totalEarnings, setTotalEarnings] = useState(0);
+  const [bucks, setBucks] = useState(0);
+  const [totalBucks, setTotalBucks] = useState(0);
   const [maxWin, setMaxWin] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
   const [cactusPassed, setCactusPassed] = useState(false);
-  const [lastEarnings, setLastEarnings] = useState(0);
+  const [lastBucks, setLastBucks] = useState(0);
   const [showLeaderboard, setShowLeaderboard] = useState(false);
   const [playerName, setPlayerName] = useState("John Doe");
   const [showComingSoon, setShowComingSoon] = useState(false);
@@ -44,8 +44,8 @@ function GameComponent() {
   const startGame = () => {
     setGameStarted(true);
     setGameOver(false);
-    setEarnings(0);
-    setLastEarnings(0);
+    setBucks(0);
+    setLastBucks(0);
     setCactusLeft(GAME_WIDTH);
     setBeraBottom(0);
     setCactusPassed(false);
@@ -136,7 +136,7 @@ function GameComponent() {
         }
 
         if (cactusLeft < 0 && !cactusPassed) {
-          setEarnings((prevEarnings) => prevEarnings + 1);
+          setBucks((prevBucks) => prevBucks + 1);
           setCactusPassed(true);
         }
       }, 20);
@@ -146,12 +146,12 @@ function GameComponent() {
   }, [cactusLeft, beraBottom, gameOver, gameStarted, cactusPassed]);
 
   useEffect(() => {
-    if (earnings > lastEarnings) {
-      setTotalEarnings((prevTotal) => prevTotal + (earnings - lastEarnings));
-      setMaxWin((prevMax) => Math.max(prevMax, earnings));
-      setLastEarnings(earnings);
+    if (bucks > lastBucks) {
+      setTotalBucks((prevTotal) => prevTotal + (bucks - lastBucks));
+      setMaxWin((prevMax) => Math.max(prevMax, bucks));
+      setLastBucks(bucks);
     }
-  }, [earnings, lastEarnings]);
+  }, [bucks, lastBucks]);
 
   useEffect(() => {
     if (gameOver) {
@@ -215,7 +215,7 @@ function GameComponent() {
       >
         <div className="game-stats">
           <img src={airdropIcon} alt="Airdrop" className="airdrop-icon" />
-          <span>{earnings}</span>
+          <span>{bucks}</span>
         </div>
         <img
           src={beraImageSrc}
@@ -244,8 +244,8 @@ function GameComponent() {
       </div>
       <div className="game-stats-container">
         <div className="stat-item">
-          <span>Total Earnings: {totalEarnings}</span>
-          <span>MaxWin: {maxWin}</span>
+          <span>Total no. of Bucks: {totalBucks}</span>
+          <span>Max Win: {maxWin}</span>
         </div>
       </div>
       {!gameStarted && !showPopup && (
@@ -262,7 +262,7 @@ function GameComponent() {
       {showPopup && (
         <div className="popup">
           <div>Game Over!</div>
-          <div>Earnings: {earnings}</div>
+          <div>Bucks: {bucks}</div>
         </div>
       )}
 
@@ -276,9 +276,9 @@ function GameComponent() {
             &times;
           </span>
           <div className="player-info">
-            <div>Your Rank: {playerRank}</div>
-            <div>Player Name: {playerName}</div>
-            <div>Your MaxWin: {maxWin}</div>
+            <div>Name: {playerName}</div>
+            <div>Rank: {playerRank}</div>
+            <div>MaxWin: {maxWin}</div>
           </div>
 
           <div className="leaderboard-header">
