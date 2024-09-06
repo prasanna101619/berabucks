@@ -1,21 +1,20 @@
 /* General styles */
 body {
-  color: black;
-  font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  overflow-x: hidden; /* Prevent horizontal scrolling */
+  font-family: Arial, sans-serif;
+  overflow: hidden; /* Prevent scrolling */
+  background: radial-gradient(circle, #b2d8f7, #6eb5ff);
 }
 
 .App {
-  text-align: center;
-  background: radial-gradient(circle, #b2d8f7, #6eb5ff);
-  padding: 20px;
-  box-sizing: border-box;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between; /* Space out components */
+  height: 100vh; /* Full viewport height */
+  padding: 0 10px;
+  box-sizing: border-box;
 }
 
 /* Menu Buttons */
@@ -23,13 +22,13 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .start-game-button,
 .leaderboard-button {
-  margin: 10px;
-  padding: 12px 24px;
+  margin: 8px 0;
+  padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
   border: none;
@@ -48,18 +47,16 @@ body {
 /* Game container */
 .game-container {
   position: relative;
-  margin: 20px auto;
-  overflow: hidden;
-  width: 90%;
-  max-width: 600px;
-  height: 250px;
-  border-bottom: 1px solid #ddd;
-  background-color: yellow;
+  width: 100%;
+  max-width: 600px; /* Fixed max width */
+  height: 30vh; /* Proportional height */
+  background-color: yellowgreen;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #ddd;
   display: flex;
   align-items: flex-end; /* Align characters to the bottom */
   justify-content: center; /* Center content */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Character styles */
@@ -68,7 +65,7 @@ body {
   height: 43px;
   position: relative;
   bottom: 0;
-  left: 50px;
+  left: 20px;
 }
 
 .cactus {
@@ -81,14 +78,14 @@ body {
 /* Game stats */
 .game-stats {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  display: flex;
-  align-items: center;
+  top: 5%;
+  left: 5%;
   background-color: rgba(255, 255, 255, 0.8);
   padding: 5px 10px;
   border-radius: 20px;
   z-index: 10;
+  display: flex;
+  align-items: center;
 }
 
 .airdrop-icon {
@@ -116,8 +113,8 @@ body {
   text-align: center;
   z-index: 1000;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.1);
-  width: 90%; /* Keep within viewport */
-  max-height: 90%; /* Prevent overflowing */
+  max-width: 80vw;
+  max-height: 80vh; /* Prevent overflowing */
   overflow-y: auto; /* Allow scrolling */
 }
 
@@ -127,31 +124,16 @@ body {
   margin-bottom: 10px;
 }
 
-.popup div:last-child {
-  font-size: 18px;
-}
-
-.popup.coming-soon {
-  font-size: 24px;
-  font-weight: bold;
-}
-
 /* Bottom Navbar */
 .bottom-navbar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
   display: flex;
   justify-content: space-around;
   align-items: center;
   background: radial-gradient(circle, #b2d8f7, #6eb5ff);
-  padding: 15px 0;
-  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-  z-index: 100;
+  padding: 10px 0;
   width: 100%;
   max-width: 100%;
-  margin: 0 auto; /* Center the navbar */
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .nav-item {
@@ -163,11 +145,11 @@ body {
 .nav-item img {
   width: 36px;
   height: 36px;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
 }
 
 .nav-item span {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
 }
 
@@ -226,50 +208,12 @@ body {
 /* Responsive Design */
 @media (max-width: 1024px) {
   .game-container {
-    height: 200px;
-  }
-
-  .menu-buttons button {
-    padding: 10px 20px;
-    font-size: 15px;
-  }
-
-  .bottom-navbar {
-    padding: 12px 0;
+    height: 25vh;
   }
 
   .nav-item img {
     width: 34px;
     height: 34px;
-  }
-
-  .nav-item span {
-    font-size: 15px;
-  }
-}
-
-@media (max-width: 768px) {
-  .App {
-    padding: 10px;
-  }
-
-  .game-container {
-    height: 180px;
-  }
-
-  .menu-buttons button {
-    padding: 8px 16px;
-    font-size: 14px;
-  }
-
-  .bottom-navbar {
-    padding: 10px 0;
-  }
-
-  .nav-item img {
-    width: 30px;
-    height: 30px;
-    margin-bottom: 5px;
   }
 
   .nav-item span {
@@ -279,16 +223,30 @@ body {
   .popup,
   .leaderboard-popup {
     width: 90%;
-    padding: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .App {
+    padding: 0;
   }
 
-  .game-stats {
-    padding: 3px 8px;
+  .game-container {
+    height: 20vh;
   }
 
-  .airdrop-icon {
-    width: 20px;
-    height: 20px;
+  .nav-item img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .nav-item span {
+    font-size: 12px;
+  }
+
+  .popup,
+  .leaderboard-popup {
+    width: 95%;
   }
 
   .game-stats span {
@@ -298,81 +256,19 @@ body {
 
 @media (max-width: 480px) {
   .game-container {
-    height: 150px;
-  }
-
-  .menu-buttons button {
-    padding: 6px 12px;
-    font-size: 12px;
+    height: 18vh;
   }
 
   .nav-item img {
-    width: 26px;
-    height: 26px;
-    margin-bottom: 3px;
+    width: 28px;
+    height: 28px;
   }
 
   .nav-item span {
     font-size: 11px;
-  }
-
-  .popup,
-  .leaderboard-popup {
-    width: 95%;
-    padding: 10px;
-  }
-
-  .game-stats {
-    padding: 2px 6px;
-  }
-
-  .airdrop-icon {
-    width: 18px;
-    height: 18px;
   }
 
   .game-stats span {
     font-size: 14px;
-  }
-
-  .bera {
-    width: 35px;
-    height: 38px;
-  }
-
-  .cactus {
-    width: 25px;
-    height: 45px;
-  }
-}
-
-@media (max-width: 320px) {
-  .game-container {
-    height: 130px;
-  }
-
-  .menu-buttons button {
-    padding: 5px 10px;
-    font-size: 11px;
-  }
-
-  .nav-item img {
-    width: 24px;
-    height: 24px;
-    margin-bottom: 2px;
-  }
-
-  .nav-item span {
-    font-size: 10px;
-  }
-
-  .popup,
-  .leaderboard-popup {
-    width: 100%;
-    padding: 8px;
-  }
-
-  .game-stats span {
-    font-size: 12px;
   }
 }
