@@ -60,7 +60,7 @@ html {
   width: 90%;
   max-width: 600px; /* Fixed max width */
   height: 30vh; /* Proportional height */
-  background-color: coral;
+  background-color: yellow;
   border-radius: 8px;
   border-bottom: 1px solid #ddd;
   display: flex;
@@ -195,11 +195,15 @@ html {
 
 .player-info {
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-  padding: 10px;
-  background-color: #f0f0f0;
-  border-radius: 5px;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2em; /* Add 2 lines of space above */
+  margin-bottom: 1em; /* Add 1 line of space below */
+  font-weight: bold; /* Make text bold */
+}
+
+.player-info > div {
+  margin-bottom: 0.5em; /* Add some space between each line */
 }
 
 .leaderboard-header,
@@ -229,6 +233,7 @@ html {
 @media (max-width: 1024px) {
   .game-container {
     height: 25vh;
+    width:90%;
   }
 
   .nav-item img {
@@ -252,8 +257,8 @@ html {
   }
 
   .game-container {
-    height: 20vh;
-    width: 90%;
+    height: 25vh; /* Increase height */
+    width: 80%; /* Reduce width */
   }
 
   .nav-item img {
@@ -277,8 +282,8 @@ html {
 
 @media (max-width: 480px) {
   .game-container {
-    height: 18vh;
-    width: 90%;
+    height: 30vh; /* Further increase height for smaller screens */
+    width: 85%; /* Slightly adjust width */
   }
 
   .nav-item img {
