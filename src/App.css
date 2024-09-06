@@ -193,6 +193,7 @@ html {
   color: #000;
 }
 
+/* Player info styles */
 .player-info {
   display: flex;
   flex-direction: column;
