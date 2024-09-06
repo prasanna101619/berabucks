@@ -49,7 +49,7 @@ body {
   max-width: 600px;
   height: 250px;
   border-bottom: 1px solid #ddd;
-  background-color: #fafcfb;
+  background-color: red;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
