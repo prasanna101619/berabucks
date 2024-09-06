@@ -12,12 +12,11 @@ import beraGif from './assets/bera.gif';
 import cactusImage from './assets/cactus.png';
 import FriendsPage from './Friends';
 
-const GAME_WIDTH = 600;
-const GAME_HEIGHT = 200;
-const BERA_WIDTH = 40;
-const BERA_HEIGHT = 60;
-const CACTUS_WIDTH = 20;
-const CACTUS_HEIGHT = 40;
+const getGameDimensions = () => {
+  const width = Math.min(600, window.innerWidth - 20);
+  const height = Math.min(200, window.innerHeight * 0.3);
+  return { width, height };
+};
 
 function GameComponent() {
   const [beraBottom, setBeraBottom] = useState(0);
@@ -204,6 +203,15 @@ function GameComponent() {
     return records.slice(0, 100);
   };
 
+  useEffect(() => {
+    const handleResize = () => {
+      setGameDimensions(getGameDimensions());
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div className="App">
       <div className="player-name">
@@ -211,7 +219,11 @@ function GameComponent() {
       </div>
       <div 
         className="game-container" 
-        style={{ width: GAME_WIDTH, height: GAME_HEIGHT }}
+        style={{ 
+          width: gameDimensions.width, 
+          height: gameDimensions.height,
+          margin: '0 auto' // Center the game container
+        }}
         ref={gameContainerRef}
       >
         <div className="game-stats">
@@ -270,7 +282,7 @@ function GameComponent() {
       )}
 
       {showLeaderboard && (
-        <div className="leaderboard-popup" style={{ width: GAME_WIDTH }}>
+        <div className="leaderboard-popup" style={{ width: gameDimensions.width, maxWidth: '100%' }}>
           <h2>Leaderboard</h2>
           <span 
             className="close-icon" 
