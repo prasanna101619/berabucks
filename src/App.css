@@ -5,6 +5,12 @@ body {
   font-family: Arial, sans-serif;
   overflow: hidden; /* Prevent scrolling */
   background: radial-gradient(circle, #b2d8f7, #6eb5ff);
+  touch-action: none; /* Disable zooming on mobile devices */
+}
+
+html {
+  overflow: hidden;
+  height: 100%;
 }
 
 .App {
@@ -15,6 +21,8 @@ body {
   height: 100vh; /* Full viewport height */
   padding: 0 10px;
   box-sizing: border-box;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
 /* Menu Buttons */
@@ -50,7 +58,7 @@ body {
   width: 100%;
   max-width: 600px; /* Fixed max width */
   height: 30vh; /* Proportional height */
-  background-color: yellow;
+  background-color: chartreuse;
   border-radius: 8px;
   border-bottom: 1px solid #ddd;
   display: flex;
@@ -232,11 +240,12 @@ body {
 
 @media (max-width: 768px) {
   .App {
-    padding: 0;
+    padding: 0 5px;
   }
 
   .game-container {
     height: 20vh;
+    width: 90%;
   }
 
   .nav-item img {
@@ -261,6 +270,7 @@ body {
 @media (max-width: 480px) {
   .game-container {
     height: 18vh;
+    width: 90%;
   }
 
   .nav-item img {
