@@ -60,7 +60,7 @@ html {
   width: 90%;
   max-width: 600px; /* Fixed max width */
   height: 30vh; /* Proportional height */
-  background-color: skyblue;
+  background-color: yellow;
   border-radius: 8px;
   border-bottom: 1px solid #ddd;
   display: flex;
@@ -143,6 +143,9 @@ html {
   font-weight: bold;
 }
 
+.leaderboard-popup .player-info > div {
+  margin-bottom: 0.5em;
+}
 
 .popup div:first-child {
   font-size: 24px;
