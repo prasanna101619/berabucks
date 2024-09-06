@@ -206,8 +206,8 @@ function GameComponent() {
 
   return (
     <div className="App">
-      <div className="player-name">
-        Player Name: {playerName}
+      <div className="player-name-container">
+        <span className="player-name-text">Player Name: {playerName}</span>
       </div>
       <div 
         className="game-container" 
@@ -245,8 +245,6 @@ function GameComponent() {
       <div className="game-stats-container">
         <div className="stat-item">
           <span>Total Earnings: {totalEarnings}</span>
-        </div>
-        <div className="stat-item">
           <span>MaxWin: {maxWin}</span>
         </div>
       </div>

@@ -60,7 +60,7 @@ html {
   width: 90%;
   max-width: 600px; /* Fixed max width */
   height: 30vh; /* Proportional height */
-  background-color: yellow;
+  background-color: #fafbfc;
   border-radius: 8px;
   border-bottom: 1px solid #ddd;
   display: flex;
@@ -78,7 +78,6 @@ html {
   left: 10%; /* Adjusted position for better visibility */
   width: 40px;
   height: 43px;
-  background-color: inherit; /* Assuming bera is a black character; change as needed */
   z-index: 2; /* Ensure Bera is above other elements */
 }
 
@@ -88,7 +87,6 @@ html {
   right: 10%; /* Adjusted position for better visibility */
   width: 30px;
   height: 50px;
-  background-color: inherit; /* Assuming cactus is green; change as needed */
 }
 
 /* Game stats */
@@ -313,4 +311,32 @@ html {
   .game-stats span {
     font-size: 14px;
   }
+}
+
+/* New styles for game stats container and stat items */
+.game-stats-container {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-item span {
+  font-weight: bold;
+  margin: 5px 0;
+}
+
+/* Player name styles */
+.player-name-container {
+  padding: 10px 0;
+  margin-bottom: 10px;
+}
+
+.player-name-text {
+  font-weight: bold;
+  font-size: 1.1em;
 }
