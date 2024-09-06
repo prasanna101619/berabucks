@@ -244,8 +244,11 @@ function GameComponent() {
       </div>
       <div className="game-stats-container">
         <div className="stat-item">
-          <span>Total no. of Bucks: {totalBucks}</span>
-          <span>Max Win: {maxWin}</span>
+          <div className="total-bucks">
+            <img src={airdropIcon} alt="Airdrop" className="airdrop-icon" style={{width:'40px',height:'40px'}} />
+            <span>&nbsp;{totalBucks}</span>
+          </div>
+          <div className="max-win">Max Win: {maxWin}</div>
         </div>
       </div>
       {!gameStarted && !showPopup && (

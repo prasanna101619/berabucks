@@ -320,6 +320,16 @@ html {
   font-size: 1.2em; /* Added font size increase */
 }
 
+.total-bucks {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.max-win {
+  font-size: 0.9em;
+}
+
 .player-name-container {
   padding: 10px 0;
   margin-bottom: 10px;
