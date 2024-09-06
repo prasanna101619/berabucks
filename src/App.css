@@ -60,7 +60,7 @@ html {
   width: 90%;
   max-width: 600px; /* Fixed max width */
   height: 30vh; /* Proportional height */
-  background-color: gold;
+  background-color: aqua;
   border-radius: 8px;
   border-bottom: 1px solid #ddd;
   display: flex;
@@ -198,9 +198,9 @@ html {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 20px; /* Add 2 lines of space above */
-  margin-bottom: 10px; /* Add 1 line of space below */
-  font-weight: bold; /* Make text bold */
+  padding-top: 20px;
+  padding-bottom: 10px; 
+  font-weight: bold; 
 }
 
 .player-info > div {
