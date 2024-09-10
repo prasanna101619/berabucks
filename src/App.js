@@ -36,6 +36,9 @@ function GameComponent() {
   const [showComingSoon, setShowComingSoon] = useState(false);
   const [beraImageSrc, setBeraImageSrc] = useState(beraImage);
   const [playerRank, setPlayerRank] = useState(0);
+  const [jumpCount, setJumpCount] = useState(0);
+  const [bucksPerJump, setBucksPerJump] = useState(1);
+  const [nextMilestone, setNextMilestone] = useState(10);
   const gameContainerRef = useRef(null);
   const bottomNavbarRef = useRef(null);
 
@@ -50,6 +53,27 @@ function GameComponent() {
     setBeraBottom(0);
     setCactusPassed(false);
     setBeraImageSrc(beraGif);
+    setJumpCount(0);
+    setBucksPerJump(1);
+    setNextMilestone(10);
+  };
+
+  const calculateBucks = (jumps) => {
+    let totalBucks = 0;
+    let currentBucksPerJump = 1;
+
+    for (let i = 0; i < Math.floor(jumps / 10); i++) {
+      for (let j = 0; j < 10; j++) {
+        totalBucks += currentBucksPerJump;
+      }
+      currentBucksPerJump *= 2;
+    }
+
+    for (let j = 0; j < jumps % 10; j++) {
+      totalBucks += currentBucksPerJump;
+    }
+
+    return totalBucks;
   };
 
   const jump = useCallback(() => {
@@ -106,11 +130,30 @@ function GameComponent() {
     };
   }, [jump]);
 
+  const calculateNextMilestone = useCallback((currentJumps) => {
+    const currentSet = Math.floor(currentJumps / 10);
+    const baseScore = 10 * (Math.pow(2, currentSet) - 1);
+    return baseScore + 10 * Math.pow(2, currentSet);
+  }, []);
+
+  useEffect(() => {
+    setNextMilestone(calculateNextMilestone(jumpCount));
+  }, [jumpCount, calculateNextMilestone]);
+
   useEffect(() => {
     if (gameStarted && !gameOver) {
       const gameInterval = setInterval(() => {
         setCactusLeft((prevLeft) => {
           if (prevLeft <= -CACTUS_WIDTH) {
+            if (!cactusPassed && beraBottom > 0) {
+              setJumpCount(prevCount => {
+                const newCount = prevCount + 1;
+                const newBucks = calculateBucks(newCount) - calculateBucks(prevCount);
+                setBucks(prevBucks => prevBucks + newBucks);
+                setBucksPerJump(Math.pow(2, Math.floor(newCount / 10)));
+                return newCount;
+              });
+            }
             setCactusPassed(false);
             return GAME_WIDTH;
           }
@@ -132,18 +175,24 @@ function GameComponent() {
 
           setTimeout(() => {
             setShowPopup(false);
-          }, 1000); // Changed from 3000 to 500 milliseconds
+          }, 1000);
         }
 
-        if (cactusLeft < 0 && !cactusPassed) {
-          setBucks((prevBucks) => prevBucks + 1);
+        if (cactusLeft < beraLeft && !cactusPassed && beraBottom > 0) {
           setCactusPassed(true);
+          setJumpCount(prevCount => {
+            const newCount = prevCount + 1;
+            const newBucks = calculateBucks(newCount) - calculateBucks(prevCount);
+            setBucks(prevBucks => prevBucks + newBucks);
+            setBucksPerJump(Math.pow(2, Math.floor(newCount / 10)));
+            return newCount;
+          });
         }
       }, 20);
 
       return () => clearInterval(gameInterval);
     }
-  }, [cactusLeft, beraBottom, gameOver, gameStarted, cactusPassed]);
+  }, [cactusLeft, beraBottom, gameOver, gameStarted, cactusPassed, calculateBucks]);
 
   useEffect(() => {
     if (bucks > lastBucks) {
@@ -214,8 +263,11 @@ function GameComponent() {
         ref={gameContainerRef}
       >
         <div className="game-stats">
-          <img src={airdropIcon} alt="Airdrop" className="airdrop-icon" />
-          <span>{bucks}</span>
+          <div className="bucks-display">
+            <img src={airdropIcon} alt="Airdrop" className="airdrop-icon" />
+            <span>{bucks}</span>
+          </div>
+          <span className="next-milestone-hint">Next Milestone: {nextMilestone}</span>
         </div>
         <img
           src={beraImageSrc}
@@ -245,7 +297,7 @@ function GameComponent() {
       <div className="game-stats-container">
         <div className="stat-item">
           <div className="total-bucks">
-            <img src={airdropIcon} alt="Airdrop" className="airdrop-icon" style={{width:'40px',height:'40px'}} />
+            <img src={airdropIcon} alt="Airdrop" className="airdrop-icon" style={{width:'35px',height:'35px'}} />
             <span>&nbsp;{totalBucks}</span>
           </div>
           <div className="max-win">Max Win: {maxWin}</div>
