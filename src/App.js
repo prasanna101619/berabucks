@@ -260,7 +260,7 @@ function GameComponent() {
     if (gameStarted && !gameOver) {
       imageInterval = setInterval(() => {
         setImageToggle(prev => !prev);
-        setBeraImageSrc(imageToggle ? berajet2 : berajet3);
+        setBeraImageSrc(prev => prev === berajet2 ? berajet3 : berajet2); // Toggle image source
       }, 250);
     }
 
