@@ -1,20 +1,81 @@
+body {
+    margin: 0; /* Remove default margin */
+    overflow: hidden; /* Hide overflow for parallax effect */
+}
+
+.App {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Center content vertically */
+    height: 100vh;
+    padding: 10px 10px 60px;
+    box-sizing: border-box;
+    max-width: 100vw;
+    position: relative;
+}
+
+/* Background layers */
+.stars, .twinkling, .clouds {
+    position: fixed; /* Fixed for full-page effect */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.stars {
+    background: #000 url('https://i.imgur.com/YKY28eT.png') repeat top center; /* Stars background */
+    z-index: 0;
+}
+
+.twinkling {
+    background: transparent url('https://i.imgur.com/XYMF4ca.png') repeat top center; /* Twinkling background */
+    z-index: 1;
+    animation: move-twink-back 200s linear infinite; /* Twinkling effect */
+}
+
+.clouds {
+    background: transparent url('https://i.imgur.com/mHbScrQ.png') repeat top center; /* Clouds background */
+    z-index: 2;
+    animation: move-clouds-back 200s linear infinite; /* Cloud movement */
+}
+
+/* Keyframes for animations */
+@keyframes move-twink-back {
+    from {background-position: 0 0;}
+    to {background-position: -10000px 5000px;}
+}
+
+@keyframes move-clouds-back {
+    from {background-position: 0 0;}
+    to {background-position: 10000px 0;}
+}
+
 .invite-page {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: calc(100vh - 60px); /* Adjust for bottom navbar */
-    background-color: inherit;
+    position: relative; /* Ensure it sits above the background layers */
 }
 
 .invite-container {
-    background-color: white;
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 0 0 20px solid #00ffff; /* Added border */
     border-radius: 10px;
     padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0, 255, 255, 0.5); /* Updated box shadow */
     text-align: center;
     max-width: 400px;
     width: 90%;
+    color: #00ffff;    
+    z-index: 2;
+}
+
+.invite-container h1 {
+    color: #ff00ff !important; /* Force the color change */
 }
 
 .invite-content {
@@ -70,4 +131,57 @@
 @keyframes fadeInOut {
     0%, 100% { opacity: 0; }
     10%, 90% { opacity: 1; }
+}
+
+.game-wrapper {
+  position: relative;
+  width: 100vw;
+  display: flex; /* Enable flexbox */
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
+  height: 100vh;
+  overflow: hidden;
+}
+
+.parallax-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.stars, .twinkling, .clouds {
+  position: fixed; /* Fixed for full-page effect */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.stars {
+  background: #000 url('https://i.imgur.com/YKY28eT.png') repeat top center;
+  z-index: 0;
+}
+
+.twinkling {
+  background: transparent url('https://i.imgur.com/XYMF4ca.png') repeat top center;
+  z-index: 1;
+  animation: move-twink-back 200s linear infinite;
+}
+
+.clouds {
+  background: transparent url('https://i.imgur.com/mHbScrQ.png') repeat top center;
+  z-index: 2;
+  animation: move-clouds-back 200s linear infinite;
+}
+
+@keyframes move-twink-back {
+  from {background-position: 0 0;}
+  to {background-position: -10000px 5000px;}
+}
+
+@keyframes move-clouds-back {
+  from {background-position: 0 0;}
+  to {background-position: 10000px 0;}
 }

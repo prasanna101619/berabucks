@@ -37,9 +37,12 @@ const FriendsPage = () => {
 
 	return (
 		<div className="App">
+			<div className="stars"></div>
+			<div className="twinkling"></div>
+			<div className="clouds"></div>
 			<div className="invite-page">
 				<div className="invite-container">
-					<h1>Invite Your Friends</h1>
+					<h1>Invite Your Friends</h1> {/* Ensure this is correctly placed */}
 					<div className="invite-content">
 						<img src={inviteIcon} alt="Invite" className="invite-icon" />
 						<p>

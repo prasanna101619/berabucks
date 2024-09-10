@@ -7,40 +7,44 @@ import raceIcon from './assets/race.png';
 import earnIcon from './assets/earn.png';
 import friendsIcon from './assets/friends.png';
 import airdropIcon from './assets/airdrop.png';
-import beraImage from './assets/bera.png';
-import beraGif from './assets/bera.gif';
-import cactusImage from './assets/cactus.png';
+import beraImage from './assets/berajet.png';
+import astroidImage from './assets/astroid.png';
 import FriendsPage from './Friends';
+import berajet2 from './assets/berajet2.png';
+import berajet3 from './assets/berajet3.png';
+import blastImage from './assets/blast.png'; // Path to the blast image
 
 const GAME_WIDTH = 600;
 const GAME_HEIGHT = 200;
-const BERA_WIDTH = 40;
-const BERA_HEIGHT = 60;
-const CACTUS_WIDTH = 20;
-const CACTUS_HEIGHT = 40;
+const BERA_WIDTH = 80;
+const BERA_HEIGHT = 40;
+const ASTROID_WIDTH = 40;
+const ASTROID_HEIGHT = 40;
 
 function GameComponent() {
   const [beraBottom, setBeraBottom] = useState(0);
   const [isJumping, setIsJumping] = useState(false);
-  const [cactusLeft, setCactusLeft] = useState(GAME_WIDTH);
+  const [astroidLeft, setAstroidLeft] = useState(GAME_WIDTH);
   const [bucks, setBucks] = useState(0);
   const [totalBucks, setTotalBucks] = useState(0);
   const [maxWin, setMaxWin] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [gameStarted, setGameStarted] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-  const [cactusPassed, setCactusPassed] = useState(false);
+  const [astroidPassed, setAstroidPassed] = useState(false);
   const [lastBucks, setLastBucks] = useState(0);
   const [showLeaderboard, setShowLeaderboard] = useState(false);
   const [playerName, setPlayerName] = useState("John Doe");
   const [showComingSoon, setShowComingSoon] = useState(false);
-  const [beraImageSrc, setBeraImageSrc] = useState(beraImage);
+  const [beraImageSrc, setBeraImageSrc] = useState(berajet2);
   const [playerRank, setPlayerRank] = useState(0);
   const [jumpCount, setJumpCount] = useState(0);
   const [bucksPerJump, setBucksPerJump] = useState(1);
   const [nextMilestone, setNextMilestone] = useState(10);
   const gameContainerRef = useRef(null);
   const bottomNavbarRef = useRef(null);
+  const [imageToggle, setImageToggle] = useState(true);
+  const [showBlast, setShowBlast] = useState(false); // New state for blast image
 
   const navigate = useNavigate();
 
@@ -49,13 +53,14 @@ function GameComponent() {
     setGameOver(false);
     setBucks(0);
     setLastBucks(0);
-    setCactusLeft(GAME_WIDTH);
+    setAstroidLeft(GAME_WIDTH);
     setBeraBottom(0);
-    setCactusPassed(false);
-    setBeraImageSrc(beraGif);
+    setAstroidPassed(false);
+    setBeraImageSrc(berajet2); // Use berajet2 as the initial image
     setJumpCount(0);
     setBucksPerJump(1);
     setNextMilestone(10);
+    setShowBlast(false); // Reset showBlast state
   };
 
   const calculateBucks = (jumps) => {
@@ -81,8 +86,8 @@ function GameComponent() {
       setIsJumping(true);
       let jumpCount = 0;
       const jumpInterval = setInterval(() => {
-        const gravity = 5;
-        const jumpHeight = 160;
+        const gravity = 0.2; // Reduced gravity value for slower fall
+        const jumpHeight = 300;
         const jumpIncrement = jumpHeight / 60;
 
         if (jumpCount >= 20) {
@@ -143,9 +148,9 @@ function GameComponent() {
   useEffect(() => {
     if (gameStarted && !gameOver) {
       const gameInterval = setInterval(() => {
-        setCactusLeft((prevLeft) => {
-          if (prevLeft <= -CACTUS_WIDTH) {
-            if (!cactusPassed && beraBottom > 0) {
+        setAstroidLeft((prevLeft) => {
+          if (prevLeft <= -ASTROID_WIDTH) {
+            if (!astroidPassed && beraBottom > 0) {
               setJumpCount(prevCount => {
                 const newCount = prevCount + 1;
                 const newBucks = calculateBucks(newCount) - calculateBucks(prevCount);
@@ -154,7 +159,7 @@ function GameComponent() {
                 return newCount;
               });
             }
-            setCactusPassed(false);
+            setAstroidPassed(false);
             return GAME_WIDTH;
           }
           return prevLeft - 5;
@@ -162,24 +167,26 @@ function GameComponent() {
 
         const beraLeft = 50;
         const beraRight = beraLeft + BERA_WIDTH;
-        const cactusRight = cactusLeft + CACTUS_WIDTH;
+        const astroidRight = astroidLeft + ASTROID_WIDTH;
 
         if (
-          beraRight > cactusLeft &&
-          beraLeft < cactusRight &&
-          beraBottom < CACTUS_HEIGHT
+          beraRight > astroidLeft &&
+          beraLeft < astroidRight &&
+          beraBottom < ASTROID_HEIGHT
         ) {
           setGameOver(true);
           setGameStarted(false);
           setShowPopup(true);
+          setShowBlast(true); // Show blast image
+          setAstroidLeft(-ASTROID_WIDTH); // Hide astroid by moving it off-screen
 
           setTimeout(() => {
             setShowPopup(false);
           }, 1000);
         }
 
-        if (cactusLeft < beraLeft && !cactusPassed && beraBottom > 0) {
-          setCactusPassed(true);
+        if (astroidLeft < beraLeft && !astroidPassed && beraBottom > 0) {
+          setAstroidPassed(true);
           setJumpCount(prevCount => {
             const newCount = prevCount + 1;
             const newBucks = calculateBucks(newCount) - calculateBucks(prevCount);
@@ -192,7 +199,7 @@ function GameComponent() {
 
       return () => clearInterval(gameInterval);
     }
-  }, [cactusLeft, beraBottom, gameOver, gameStarted, cactusPassed, calculateBucks]);
+  }, [astroidLeft, beraBottom, gameOver, gameStarted, astroidPassed, calculateBucks]);
 
   useEffect(() => {
     if (bucks > lastBucks) {
@@ -204,7 +211,7 @@ function GameComponent() {
 
   useEffect(() => {
     if (gameOver) {
-      setBeraImageSrc(beraImage);
+      setBeraImageSrc(berajet2); // Set to berajet2 after game over
     }
   }, [gameOver]);
 
@@ -253,24 +260,50 @@ function GameComponent() {
     return records.slice(0, 100);
   };
 
+  useEffect(() => {
+    let imageInterval;
+    if (gameStarted && !gameOver) {
+      imageInterval = setInterval(() => {
+        setImageToggle(prev => !prev);
+        setBeraImageSrc(imageToggle ? berajet2 : berajet3);
+      }, 250);
+    }
+
+    return () => clearInterval(imageInterval);
+  }, [gameStarted, gameOver, imageToggle]);
+
   return (
     <div className="App" style={{ fontFamily: "'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif" }}>
-      <div className="player-name-container">
-        <span className="player-name-text">Player Name: {playerName}</span>
+      <div className="game-wrapper">
+        <div className="parallax-bg">
+          <div className="stars"></div>
+          <div className="twinkling"></div>
+          <div className="clouds"></div>
+      <div className="header">
+        <h1 className="header-title">BERA BUCKS</h1>
       </div>
-      <div 
-        className="game-container" 
-        ref={gameContainerRef}
-      >
+      <div className="player-name-container">
+        <span className="player-name-text">{playerName}</span>
+      </div>
+      <div className="total-coins-container">
+        <div className="coins-info">
+          <img src={airdropIcon} alt="Airdrop" className="airdrop-icon" />
+          <span className="total-coins"><span style={{ color: '#00ffff' }}>{totalBucks}</span></span>
+        </div>
+        <div className="max-win-container">
+          <span className="max-win-text">Max Win: <span style={{ color: '#00ffff' }}>{maxWin}</span></span>
+        </div>
+      </div>
+      <div className="game-container" ref={gameContainerRef}>
         <div className="game-stats">
           <div className="bucks-display">
             <img src={airdropIcon} alt="Airdrop" className="airdrop-icon" />
             <span>{bucks}</span>
           </div>
-          <span className="next-milestone-hint">Next Milestone: {nextMilestone}</span>
+          <span className="next-milestone-hint" style={{ color: '#ff00ff', textShadow: '0 0 10px #ff00ff' }}>Next Milestone: <span style={{ color: '#00ffff' }}>{nextMilestone}</span></span>
         </div>
         <img
-          src={beraImageSrc}
+          src={showBlast ? blastImage : beraImageSrc} // Show blast image if applicable
           alt="Bera"
           className="bera"
           style={{
@@ -282,73 +315,71 @@ function GameComponent() {
           }}
         />
         <img
-          src={cactusImage}
-          alt="Cactus"
-          className="cactus"
+          src={showBlast ? '' : astroidImage} // Hide astroid if blast is shown
+          alt="Astroid"
+          className={`astroid ${gameStarted && !gameOver ? 'rotating' : ''}`} // Apply rotating class conditionally
           style={{
-            left: cactusLeft,
-            width: CACTUS_WIDTH,
-            height: CACTUS_HEIGHT,
+            left: astroidLeft,
+            width: ASTROID_WIDTH,
+            height: ASTROID_HEIGHT,
             position: 'absolute',
             bottom: '0',
           }}
         />
-      </div>
-      <div className="game-stats-container">
-        <div className="stat-item">
-          <div className="total-bucks">
-            <img src={airdropIcon} alt="Airdrop" className="airdrop-icon" style={{width:'35px',height:'35px'}} />
-            <span>&nbsp;{totalBucks}</span>
+        {!gameStarted && !showPopup && (
+          <div className="menu-buttons">
+            <button className="start-game-button" onClick={startGame}>
+              Start Game
+            </button>
+            <button className="leaderboard-button" onClick={toggleLeaderboard}>
+              Leaderboard
+            </button>
           </div>
-          <div className="max-win">Max Win: {maxWin}</div>
-        </div>
+        )}
       </div>
-      {!gameStarted && !showPopup && (
-        <div className="menu-buttons">
-          <button className="start-game-button" onClick={startGame}>
-            Start Game
-          </button>
-          <button className="leaderboard-button" onClick={toggleLeaderboard}>
-            Leaderboard
-          </button>
-        </div>
-      )}
-
       {showPopup && (
         <div className="popup">
-          <div>Game Over!</div>
-          <div>Bucks: {bucks}</div>
+          <div style={{color:'red', fontWeight:'bold'}}>Game Over!</div>
+          <div style={{color:'#fff'}}>Bucks: {bucks}</div>
         </div>
       )}
 
       {showLeaderboard && (
-        <div className="leaderboard-popup" style={{ width: GAME_WIDTH }}>
+        <div className="leaderboard-popup">
           <h2>Leaderboard</h2>
-          <span 
-            className="close-icon" 
-            onClick={toggleLeaderboard}
-          >
-            &times;
-          </span>
+          <span className="close-icon" onClick={toggleLeaderboard}>&times;</span>
           <div className="player-info">
-            <div>Name: {playerName}</div>
-            <div>Rank: {playerRank}</div>
-            <div>MaxWin: {maxWin}</div>
+            <table>
+              <tr>
+                <td style={{ color: '#ff00ff' }}>Name: <span style={{ color: '#00ffff' }}>{playerName}</span></td>
+                <td style={{ color: '#ff00ff' }}>Rank: <span style={{ color: '#00ffff' }}>{playerRank}</span></td>
+                <td style={{ color: '#ff00ff' }}>MaxWin: <span style={{ color: '#00ffff' }}>{maxWin}</span></td>
+              </tr>
+            </table>
           </div>
-
-          <div className="leaderboard-header">
-            <span>Rank</span>
-            <span>Name</span>
-            <span>MaxWin</span>
-          </div>
-          <div className="leaderboard-table">
-            {generateLeaderboardRecords().map((record, index) => (
-              <div key={index} className="leaderboard-row">
-                <span>{record.rank}</span>
-                <span>{record.name}</span>
-                <span>{record.maxWin}</span>
-              </div>
-            ))}
+          <div className="leaderboard-table-container" style={{ overflowY: 'hidden' }}>
+            <table className="leaderboard-table">
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Name</th>
+                  <th>MaxWin</th>
+                </tr>
+              </thead>
+            </table>
+            <div className="leaderboard-table-body-container" style={{ maxHeight: '300px', overflowY: 'auto' }}>
+              <table className="leaderboard-table">
+                <tbody>
+                  {generateLeaderboardRecords().map((record, index) => (
+                    <tr key={index}>
+                      <td>{record.rank}</td>
+                      <td>{record.name}</td>
+                      <td>{record.maxWin}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       )}
@@ -374,6 +405,8 @@ function GameComponent() {
           <img src={airdropIcon} alt="Airdrop" />
           <span>Airdrop</span>
         </div>
+      </div>      
+      </div>
       </div>
 
       {showComingSoon && (
