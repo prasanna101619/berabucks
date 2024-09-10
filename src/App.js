@@ -17,7 +17,7 @@ const GAME_WIDTH = 600;
 const GAME_HEIGHT = 200;
 const BERA_WIDTH = 80;
 const BERA_HEIGHT = 40;
-const ASTROID_WIDTH = 40;
+const ASTROID_WIDTH = 20;
 const ASTROID_HEIGHT = 40;
 
 function GameComponent() {
