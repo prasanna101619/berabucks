@@ -12,6 +12,7 @@ import astroidImage from './assets/astroid.png';
 import FriendsPage from './Friends';
 import berajet2 from './assets/berajet2.png';
 import berajet3 from './assets/berajet3.png';
+import blastImage from './assets/blast.png'; // Import blast image
 
 const GAME_WIDTH = 600;
 const GAME_HEIGHT = 200;
@@ -43,6 +44,8 @@ function GameComponent() {
   const gameContainerRef = useRef(null);
   const bottomNavbarRef = useRef(null);
   const [imageToggle, setImageToggle] = useState(true);
+  const [isBlast, setIsBlast] = useState(false); // Track if blast image should be shown
+  const [isAstroidVisible, setIsAstroidVisible] = useState(true); // Track if astroid should be visible
 
   const navigate = useNavigate();
 
@@ -58,6 +61,8 @@ function GameComponent() {
     setJumpCount(0);
     setBucksPerJump(1);
     setNextMilestone(10);
+    setIsBlast(false); // Reset blast state
+    setIsAstroidVisible(true); // Show the astroid
   };
 
   const calculateBucks = (jumps) => {
@@ -79,7 +84,7 @@ function GameComponent() {
   };
 
   const jump = useCallback(() => {
-    if (!isJumping && gameStarted && !gameOver) {
+    if (!isJumping && gameStarted && !gameOver && !isBlast) { // Prevent jumping if in blast state
       setIsJumping(true);
       let jumpCount = 0;
       const jumpInterval = setInterval(() => {
@@ -100,7 +105,7 @@ function GameComponent() {
         }
       }, 40);
     }
-  }, [isJumping, gameStarted, gameOver]);
+  }, [isJumping, gameStarted, gameOver, isBlast]); // Add isBlast to dependencies
 
   useEffect(() => {
     const handleKeyPress = (event) => {
@@ -174,6 +179,9 @@ function GameComponent() {
           setGameOver(true);
           setGameStarted(false);
           setShowPopup(true);
+          setIsBlast(true); // Set blast state to true
+          setBeraImageSrc(blastImage); // Change image to blast.png
+          setIsAstroidVisible(false); // Hide the astroid on collision
 
           setTimeout(() => {
             setShowPopup(false);
@@ -298,7 +306,7 @@ function GameComponent() {
           <span className="next-milestone-hint" style={{ color: '#ff00ff', textShadow: '0 0 10px #ff00ff' }}>Next Milestone: <span style={{ color: '#00ffff' }}>{nextMilestone}</span></span>
         </div>
         <img
-          src={beraImageSrc}
+          src={isBlast ? blastImage : beraImageSrc} // Use blast image if in blast state
           alt="Bera"
           className="bera"
           style={{
@@ -309,18 +317,20 @@ function GameComponent() {
             left: '50px',
           }}
         />
-        <img
-          src={astroidImage}
-          alt="Astroid"
-          className={`astroid ${gameStarted && !gameOver ? 'rotating' : ''}`} // Apply rotating class conditionally
-          style={{
-            left: astroidLeft,
-            width: ASTROID_WIDTH,
-            height: ASTROID_HEIGHT,
-            position: 'absolute',
-            bottom: '0',
-          }}
-        />
+        {isAstroidVisible && ( // Render astroid only if it's visible
+          <img
+            src={astroidImage}
+            alt="Astroid"
+            className={`astroid ${gameStarted && !gameOver ? 'rotating' : ''}`} // Apply rotating class conditionally
+            style={{
+              left: astroidLeft,
+              width: ASTROID_WIDTH,
+              height: ASTROID_HEIGHT,
+              position: 'absolute',
+              bottom: '0',
+            }}
+          />
+        )}
         {!gameStarted && !showPopup && (
           <div className="menu-buttons">
             <button className="start-game-button" onClick={startGame}>
