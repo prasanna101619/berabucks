@@ -12,7 +12,6 @@ import astroidImage from './assets/astroid.png';
 import FriendsPage from './Friends';
 import berajet2 from './assets/berajet2.png';
 import berajet3 from './assets/berajet3.png';
-import blastImage from './assets/blast.png'; // Path to the blast image
 
 const GAME_WIDTH = 600;
 const GAME_HEIGHT = 200;
@@ -44,7 +43,6 @@ function GameComponent() {
   const gameContainerRef = useRef(null);
   const bottomNavbarRef = useRef(null);
   const [imageToggle, setImageToggle] = useState(true);
-  const [showBlast, setShowBlast] = useState(false); // New state for blast image
 
   const navigate = useNavigate();
 
@@ -60,7 +58,6 @@ function GameComponent() {
     setJumpCount(0);
     setBucksPerJump(1);
     setNextMilestone(10);
-    setShowBlast(false); // Reset showBlast state
   };
 
   const calculateBucks = (jumps) => {
@@ -177,8 +174,6 @@ function GameComponent() {
           setGameOver(true);
           setGameStarted(false);
           setShowPopup(true);
-          setShowBlast(true); // Show blast image
-          setAstroidLeft(-ASTROID_WIDTH); // Hide astroid by moving it off-screen
 
           setTimeout(() => {
             setShowPopup(false);
@@ -277,8 +272,8 @@ function GameComponent() {
       <div className="game-wrapper">
         <div className="parallax-bg">
           <div className="stars"></div>
-          <div className="twinkling"></div>
           <div className="clouds"></div>
+          <div className="twinkling"></div> // Added twinkling effect back here
       <div className="header">
         <h1 className="header-title">BERA BUCKS</h1>
       </div>
@@ -303,7 +298,7 @@ function GameComponent() {
           <span className="next-milestone-hint" style={{ color: '#ff00ff', textShadow: '0 0 10px #ff00ff' }}>Next Milestone: <span style={{ color: '#00ffff' }}>{nextMilestone}</span></span>
         </div>
         <img
-          src={showBlast ? blastImage : beraImageSrc} // Show blast image if applicable
+          src={beraImageSrc}
           alt="Bera"
           className="bera"
           style={{
@@ -315,7 +310,7 @@ function GameComponent() {
           }}
         />
         <img
-          src={showBlast ? '' : astroidImage} // Hide astroid if blast is shown
+          src={astroidImage}
           alt="Astroid"
           className={`astroid ${gameStarted && !gameOver ? 'rotating' : ''}`} // Apply rotating class conditionally
           style={{

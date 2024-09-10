@@ -38,11 +38,14 @@ html {
   height: 100%;
 }
 
-.stars, .twinkling, .clouds {
+.stars, .clouds {
   position: absolute;
   display: block;
   width: 100%;
   height: 100%;
+}
+.twinkling{
+  margin-top: 150px;
 }
 
 .stars {
@@ -50,21 +53,10 @@ html {
   z-index: 0;
 }
 
-.twinkling {
-  background: transparent url('https://i.imgur.com/XYMF4ca.png') repeat top center;
-  z-index: 0;
-  animation: move-twink-back 200s linear infinite;
-}
-
 .clouds {
   background: transparent url('https://i.imgur.com/mHbScrQ.png') repeat top center;
   z-index: 2;
   animation: move-clouds-back 200s linear infinite;
-}
-
-@keyframes move-twink-back {
-  from {background-position: 0 0;}
-  to {background-position: -10000px 5000px;}
 }
 
 @keyframes move-clouds-back {
@@ -261,16 +253,45 @@ html {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background:rgba(0, 0, 0, 0.97);
+  background: rgba(0, 0, 0, 0.97);
   padding: 10px 0;
   width: 100%;
   max-width: 100%;
-  box-shadow: 0 0 20px rgba(0, 255,255, 0.5);
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
   position: fixed;
-  color:#00ffff;
+  color: #00ffff;
   bottom: 0;
   left: 0;
   z-index: 1000;
+}
+
+/* Added stars background to the bottom navbar */
+.bottom-navbar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent url('https://i.imgur.com/YKY28eT.png') repeat top center; /* Stars background */
+  z-index: -1; /* Behind the navbar */
+}
+
+/* Twinkling effect for the stars */
+.twinkling {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent url('https://i.imgur.com/YKY28eT.png') repeat top center; /* Stars background */
+  z-index: -1; /* Behind the navbar */
+  animation: move-twink-back 200s linear infinite; /* Twinkling animation */
+}
+
+@keyframes move-twink-back {
+  from {background-position: 0 0;}
+  to {background-position: -10000px 5000px;}
 }
 
 .nav-item {
