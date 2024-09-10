@@ -63,7 +63,7 @@ body {
 
 .invite-container {
     background-color: rgba(0, 0, 0, 0.3);
-    border: 0 0 20px solid #00ffff; /* Added border */
+    border: 0 0 2px solid #00ffff; /* Added border */
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0, 255, 255, 0.5); /* Updated box shadow */
