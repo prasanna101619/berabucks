@@ -331,6 +331,7 @@ function GameComponent() {
               height: BERA_HEIGHT,
               position: 'absolute',
               left: '50px',
+              display: gameOver ? 'none' : 'block', // Hide when game is over
             }}
           />
           <img
@@ -343,6 +344,7 @@ function GameComponent() {
               height: ASTROID_HEIGHT,
               position: 'absolute',
               bottom: astroidBottom,
+              display: gameOver ? 'none' : 'block', // Hide when game is over
             }}
           />
         </div>
