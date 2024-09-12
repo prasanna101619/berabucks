@@ -357,9 +357,9 @@ function GameComponent() {
           </div>
         )}
       </div>
-      <div className="up-down-buttons"> // Changed to column
-        <button className="up-button" style={{ width: '180px' }} onClick={gameOver ? null : moveBeraUp}>Up</button> // Disable if game is over
-        <button className="down-button" style={{ width: '180px' }} onClick={gameOver ? null : moveBeraDown}>Down</button> // Disable if game is over
+      <div className="up-down-buttons"> 
+        <button className="up-button" style={{ width: '180px' }} onClick={gameOver ? null : moveBeraUp}>Up</button> 
+        <button className="down-button" style={{ width: '180px' }} onClick={gameOver ? null : moveBeraDown}>Down</button> 
       </div>
       {showPopup && (
         <div className="popup">
