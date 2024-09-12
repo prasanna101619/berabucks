@@ -1,5 +1,3 @@
-//obstacle in single lane bu others are good in mobile
-
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
@@ -45,7 +43,6 @@ function GameComponent() {
   const gameContainerRef = useRef(null);
   const bottomNavbarRef = useRef(null);
   const [imageToggle, setImageToggle] = useState(true);
-  const [astroidBottom, setAstroidBottom] = useState(0);
 
   const navigate = useNavigate();
 
@@ -82,27 +79,27 @@ function GameComponent() {
   };
 
   const jump = useCallback(() => {
-    // if (!isJumping && gameStarted && !gameOver) {
-    //   setIsJumping(true);
-    //   let jumpCount = 0;
-    //   const jumpInterval = setInterval(() => {
-    //     const gravity = 0.2; // Reduced gravity value for slower fall
-    //     const jumpHeight = 300;
-    //     const jumpIncrement = jumpHeight / 60;
+    if (!isJumping && gameStarted && !gameOver) {
+      setIsJumping(true);
+      let jumpCount = 0;
+      const jumpInterval = setInterval(() => {
+        const gravity = -1000; // Reduced gravity value for slower fall
+        const jumpHeight = 300;
+        const jumpIncrement = jumpHeight / 600;
 
-    //     if (jumpCount >= 20) {
-    //       clearInterval(jumpInterval);
-    //       setIsJumping(false);
-    //       setBeraBottom(0);
-    //     } else {
-    //       const position =
-    //         (jumpHeight - jumpCount * jumpIncrement) *
-    //         Math.sin((jumpCount * Math.PI) / 20);
-    //       setBeraBottom((prevBottom) => Math.max(position, 0));
-    //       jumpCount++;
-    //     }
-    //   }, 40);
-    // }
+        if (jumpCount >= 20) {
+          clearInterval(jumpInterval);
+          setIsJumping(false);
+          setBeraBottom(0);
+        } else {
+          const position =
+            (jumpHeight - jumpCount * jumpIncrement) *
+            Math.sin((jumpCount * Math.PI) / 20);
+          setBeraBottom((prevBottom) => Math.max(position, 0));
+          jumpCount++;
+        }
+      }, 40);
+    }
   }, [isJumping, gameStarted, gameOver]);
 
   useEffect(() => {
@@ -145,31 +142,12 @@ function GameComponent() {
     setNextMilestone(calculateNextMilestone(jumpCount));
   }, [jumpCount, calculateNextMilestone]);
 
-  const spawnAstroid = () => {
-    const randomDiv = Math.random() < 0.5 ? 2 : 3; // Randomly choose between 2nd and 3rd div
-    const newAstroidLeft = GAME_WIDTH; // Start from the right edge of the game container
-    setAstroidLeft(newAstroidLeft);
-    setAstroidPosition(randomDiv);
-  };
-
-  const setAstroidPosition = (div) => {
-    if (div === 2) {
-      // Position for the 2nd div
-      setAstroidBottom(100); // Adjust this value to position the astroid in the 2nd div
-    } else {
-      // Position for the 3rd div
-      setAstroidBottom(0); // Adjust this value to position the astroid in the 3rd div
-    }
-  };
-
   useEffect(() => {
     if (gameStarted && !gameOver) {
       const gameInterval = setInterval(() => {
         setAstroidLeft((prevLeft) => {
           if (prevLeft <= -ASTROID_WIDTH) {
-            // Astroid has passed the left end of the container
-            if (!astroidPassed) {
-              setAstroidPassed(true); // Set the flag to true
+            if (!astroidPassed && beraBottom > 0) {
               setJumpCount(prevCount => {
                 const newCount = prevCount + 1;
                 const newBucks = calculateBucks(newCount) - calculateBucks(prevCount);
@@ -178,12 +156,12 @@ function GameComponent() {
                 return newCount;
               });
             }
-            return GAME_WIDTH; // Reset astroid position
+            setAstroidPassed(false);
+            return GAME_WIDTH;
           }
-          return prevLeft - 5; // Move astroid left
+          return prevLeft - 5;
         });
 
-        // Collision detection logic
         const beraLeft = 50;
         const beraRight = beraLeft + BERA_WIDTH;
         const astroidRight = astroidLeft + ASTROID_WIDTH;
@@ -202,11 +180,17 @@ function GameComponent() {
           }, 1000);
         }
 
-        // Reset astroidPassed when astroid is repositioned
-        if (astroidLeft >= GAME_WIDTH) {
-          setAstroidPassed(false); // Reset the flag when the astroid is repositioned
+        if (astroidLeft < beraLeft && !astroidPassed && beraBottom > 0) {
+          setAstroidPassed(true);
+          setJumpCount(prevCount => {
+            const newCount = prevCount + 1;
+            const newBucks = calculateBucks(newCount) - calculateBucks(prevCount);
+            setBucks(prevBucks => prevBucks + newBucks);
+            setBucksPerJump(Math.pow(2, Math.floor(newCount / 10)));
+            return newCount;
+          });
         }
-      }, 20);
+      }, 10);
 
       return () => clearInterval(gameInterval);
     }
@@ -283,14 +267,6 @@ function GameComponent() {
     return () => clearInterval(imageInterval);
   }, [gameStarted, gameOver, imageToggle]);
 
-  const moveBeraUp = () => {
-    setBeraBottom(100); // Adjust this value to position Bera in the 2nd div
-  };
-
-  const moveBeraDown = () => {
-    setBeraBottom(0); // Adjust this value to position Bera in the 3rd div
-  };
-
   return (
     <div className="App" style={{ fontFamily: "'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif" }}>
       <div className="game-wrapper">
@@ -314,44 +290,37 @@ function GameComponent() {
         </div>
       </div>
       <div className="game-container" ref={gameContainerRef}>
-        <div className="game-stats" style={{ backgroundColor: 'inherit' }}>
+        <div className="game-stats">
           <div className="bucks-display">
             <img src={airdropIcon} alt="Airdrop" className="airdrop-icon" />
             <span>{bucks}</span>
           </div>
           <span className="next-milestone-hint" style={{ color: '#ff00ff', textShadow: '0 0 10px #ff00ff' }}>Next Milestone: <span style={{ color: '#00ffff' }}>{nextMilestone}</span></span>
         </div>
-        <div className="game-row" style={{ backgroundColor: 'inherit' }}>
-          {/* 2nd div for game */}
-        </div>
-        <div className="game-row" style={{ backgroundColor: 'inherit' }}>
-          <img
-            src={beraImageSrc}
-            alt="Bera"
-            className="bera"
-            style={{
-              bottom: beraBottom,
-              width: BERA_WIDTH,
-              height: BERA_HEIGHT,
-              position: 'absolute',
-              left: '50px',
-              display: gameOver ? 'none' : 'block', // Hide when game is over
-            }}
-          />
-          <img
-            src={astroidImage}
-            alt="Astroid"
-            className={`astroid ${gameStarted && !gameOver ? 'rotating' : ''}`} // Apply rotating class conditionally
-            style={{
-              left: astroidLeft,
-              width: ASTROID_WIDTH,
-              height: ASTROID_HEIGHT,
-              position: 'absolute',
-              bottom: astroidBottom,
-              display: gameOver ? 'none' : 'block', // Hide when game is over
-            }}
-          />
-        </div>
+        <img
+          src={beraImageSrc}
+          alt="Bera"
+          className="bera"
+          style={{
+            bottom: beraBottom,
+            width: BERA_WIDTH,
+            height: BERA_HEIGHT,
+            position: 'absolute',
+            left: '50px',
+          }}
+        />
+        <img
+          src={astroidImage}
+          alt="Astroid"
+          className={`astroid ${gameStarted && !gameOver ? 'rotating' : ''}`} // Apply rotating class conditionally
+          style={{
+            left: astroidLeft,
+            width: ASTROID_WIDTH,
+            height: ASTROID_HEIGHT,
+            position: 'absolute',
+            bottom: '0',
+          }}
+        />
         {!gameStarted && !showPopup && (
           <div className="menu-buttons">
             <button className="start-game-button" onClick={startGame}>
@@ -362,10 +331,6 @@ function GameComponent() {
             </button>
           </div>
         )}
-      </div>
-      <div className="up-down-buttons"> 
-        <button className="up-button" style={{ width: '180px' }} onClick={gameOver ? null : moveBeraUp}>Up</button>
-        <button className="down-button" style={{ width: '180px' }} onClick={gameOver ? null : moveBeraDown}>Down</button>
       </div>
       {showPopup && (
         <div className="popup">
