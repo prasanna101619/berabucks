@@ -165,23 +165,31 @@ function GameComponent() {
       const gameInterval = setInterval(() => {
         setAstroidLeft((prevLeft) => {
           if (prevLeft <= -ASTROID_WIDTH) {
-            spawnAstroid(); // Spawn a new astroid when the current one goes off-screen
-            return GAME_WIDTH; // Reset the current astroid position
+            // Astroid has passed the left end of the container
+            if (!astroidPassed) {
+              setAstroidPassed(true); // Set the flag to true
+              setJumpCount(prevCount => {
+                const newCount = prevCount + 1;
+                const newBucks = calculateBucks(newCount) - calculateBucks(prevCount);
+                setBucks(prevBucks => prevBucks + newBucks);
+                setBucksPerJump(Math.pow(2, Math.floor(newCount / 10)));
+                return newCount;
+              });
+            }
+            return GAME_WIDTH; // Reset astroid position
           }
-          return prevLeft - 5; // Move the astroid left
+          return prevLeft - 5; // Move astroid left
         });
 
-        const beraLeft = 50; // Bera's left position
-        const beraRight = beraLeft + BERA_WIDTH; // Bera's right position
-        const astroidRight = astroidLeft + ASTROID_WIDTH; // Astroid's right position
-
-        // Check collision for both divs
-        const isInSecondDiv = astroidBottom === 100; // Check if the astroid is in the 2nd div
-        const isInThirdDiv = astroidBottom === 0; // Check if the astroid is in the 3rd div
+        // Collision detection logic
+        const beraLeft = 50;
+        const beraRight = beraLeft + BERA_WIDTH;
+        const astroidRight = astroidLeft + ASTROID_WIDTH;
 
         if (
-          (isInThirdDiv && beraRight > astroidLeft && beraLeft < astroidRight && beraBottom < ASTROID_HEIGHT) || // Collision in 3rd div
-          (isInSecondDiv && beraRight > astroidLeft && beraLeft < astroidRight && beraBottom > ASTROID_HEIGHT) // Collision in 2nd div
+          beraRight > astroidLeft &&
+          beraLeft < astroidRight &&
+          beraBottom < ASTROID_HEIGHT
         ) {
           setGameOver(true);
           setGameStarted(false);
@@ -192,15 +200,9 @@ function GameComponent() {
           }, 1000);
         }
 
-        if (astroidLeft < beraLeft && !astroidPassed && beraBottom > 0) {
-          setAstroidPassed(true);
-          setJumpCount(prevCount => {
-            const newCount = prevCount + 1;
-            const newBucks = calculateBucks(newCount) - calculateBucks(prevCount);
-            setBucks(prevBucks => prevBucks + newBucks);
-            setBucksPerJump(Math.pow(2, Math.floor(newCount / 10)));
-            return newCount;
-          });
+        // Reset astroidPassed when astroid is repositioned
+        if (astroidLeft >= GAME_WIDTH) {
+          setAstroidPassed(false); // Reset the flag when the astroid is repositioned
         }
       }, 20);
 
@@ -360,8 +362,8 @@ function GameComponent() {
         )}
       </div>
       <div className="up-down-buttons"> 
-        <button className="up-button" style={{ width: '180px' }} onClick={gameOver ? null : moveBeraUp}>Up</button> 
-        <button className="down-button" style={{ width: '180px' }} onClick={gameOver ? null : moveBeraDown}>Down</button> 
+        <button className="up-button" style={{ width: '180px' }} onClick={gameOver ? null : moveBeraUp}>Up</button>
+        <button className="down-button" style={{ width: '180px' }} onClick={gameOver ? null : moveBeraDown}>Down</button> // Disable if game is over
       </div>
       {showPopup && (
         <div className="popup">
