@@ -24,9 +24,10 @@ html {
   position: relative;
   width: 100vw;
   display: flex; /* Enable flexbox */
-  align-items: center; /* Center vertically */
-  justify-content: center; /* Center horizontally */
-  height: 100vh;
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center children horizontally */
+  justify-content: center; /* Center children vertically */
+  height: 100vh; /* Full height of the viewport */
   overflow: hidden;
 }
 
@@ -123,17 +124,16 @@ html {
   border-radius: 10px;
   box-shadow: 0 0 20px var(--primary-color);
   overflow: hidden;
-  margin-top: 20px; 
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex; /* Enable flexbox for children */
   flex-direction: column; /* Stack children vertically */
   align-items: center; /* Center children horizontally */
   justify-content: center; /* Center children vertically */
-  margin: auto; /* Center horizontally */
-  position: absolute; /* Positioning it absolutely */
-  top: 50%; /* Move to the center vertically */
-  left: 50%; /* Move to the center horizontally */
-  transform: translate(-50%, -50%); /* Adjust for both height and width */
+  position: relative; /* Positioning it relatively */
   z-index:1000;
+  margin-bottom: 20px; /* Space between game container and buttons */
 }
 
 .bera {
@@ -419,6 +419,36 @@ th, td {
   }
 }
 
+@media (min-width: 481px) and (max-width: 768px) {
+  .game-container {
+    height: 35vh;
+    width: 80%;
+  }
+
+  .nav-item img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .nav-item span {
+    font-size: 12px;
+  }
+
+  .game-stats span {
+    font-size: 16px;
+  }
+
+  .up-down-buttons {
+    flex-direction: row;
+    margin-top: 20px;
+  }
+
+  .up-button, .down-button {
+    width: 70%;
+    margin: 5px;
+  }
+}
+
 @media (max-width: 768px) {
   .App {
     padding: 5px 5px 60px;
@@ -445,6 +475,16 @@ th, td {
 
   .game-stats span {
     font-size: 16px;
+  }
+  .up-down-buttons {
+    flex-direction: column; /* Stack buttons vertically on mobile */
+    align-items: center; /* Center buttons */
+    margin-top: 70px; /* Add some space above */
+  }
+
+  .up-button, .down-button {
+    width: 80%; /* Make buttons wider on mobile */
+    margin: 5px 0; /* Add space between buttons */
   }
 }
 
@@ -595,4 +635,47 @@ body {
 
 .leaderboard-table td:nth-child(3) { /* Assuming max win is the 3rd column */
     color: #00ffff; /* Change text color to #00ffff */
+}
+
+.up-button {
+  background-color: #00ffff; /* Neon cyan */
+  color: #ffffff; /* White text */
+  box-shadow: 0 0 20px var(--primary-color);
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+  z-index: 2;
+}
+
+.down-button {
+  background-color: #ff00ff; /* Neon magenta */
+  color: #ffffff; /* White text */
+  box-shadow: 0 0 20px var(--secondary-color);
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+  z-index: 2;
+}
+
+.up-down-buttons {
+  display: flex; /* Ensure buttons are displayed in a row */
+  justify-content: center; /* Center the buttons */
+  align-items: center;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Add some space above */
+  position: relative; /* Ensure it positions correctly below the game container */
+  z-index: 2; /* Ensure it appears above other elements */
 }
