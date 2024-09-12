@@ -1,3 +1,5 @@
+//obstacle in single lane bu others are good in mobile
+
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
@@ -363,7 +365,7 @@ function GameComponent() {
       </div>
       <div className="up-down-buttons"> 
         <button className="up-button" style={{ width: '180px' }} onClick={gameOver ? null : moveBeraUp}>Up</button>
-        <button className="down-button" style={{ width: '180px' }} onClick={gameOver ? null : moveBeraDown}>Down</button> // Disable if game is over
+        <button className="down-button" style={{ width: '180px' }} onClick={gameOver ? null : moveBeraDown}>Down</button>
       </div>
       {showPopup && (
         <div className="popup">
