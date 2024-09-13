@@ -17,10 +17,16 @@ const FriendsPage = () => {
 	const navigate = useNavigate();
 
 	const copyInviteLink = () => {
-		navigator.clipboard.writeText('https://t.me/berabuck');
+		navigator.clipboard.writeText(
+			"I just came across Bera Bucks. I've never seen such a wonderful game and they're offering a special referral bonus right now.\n" +
+			"If you use my referral code to join, we both get 10k coins each! 🎉\n" +
+			"Referral code: Prasanna101\n" +
+			"Game Link: https://t.me/berabucks"
+		);
 		setShowCopiedPopup(true);
 		setTimeout(() => setShowCopiedPopup(false), 2000);
 	};
+	
 
 	const handleNavClick = (option) => {
 		if (option === 'play') {
@@ -46,10 +52,10 @@ const FriendsPage = () => {
 					<div className="invite-content">
 						<img src={inviteIcon} alt="Invite" className="invite-icon" />
 						<p>
-							Share the fun with your friends and get rewards! Use the link below to invite your friends to join the game.
+						Share the fun with your friends and both of you can earn 10k coins when they use your referral link in Bera Bucks!
 						</p>
 						<div className="invite-link">
-							<input type="text" readOnly value="https://yourgame.com/invite" />
+							<input type="text" readOnly value="Refr Code: Prasanna101" />
 							<button onClick={copyInviteLink}>
 								Copy Link
 							</button>

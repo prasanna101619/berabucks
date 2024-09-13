@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
+import Auth from './Auth'; 
 
 import playIcon from './assets/play.png';
 import raceIcon from './assets/race.png';
 import earnIcon from './assets/earn.png';
 import friendsIcon from './assets/friends.png';
 import airdropIcon from './assets/airdrop.png';
-import beraImage from './assets/berajet.png';
 import astroidImage from './assets/astroid.png';
 import FriendsPage from './Friends';
 import berajet2 from './assets/berajet2.png';
@@ -420,6 +420,7 @@ function App() {
       <Routes>
         <Route path="/" element={<GameComponent />} />
         <Route path="/friends" element={<FriendsPage />} />
+        <Route path="/auth" element={<Auth />} />
       </Routes>
     </Router>
   );
