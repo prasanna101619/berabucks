@@ -39,7 +39,7 @@ function GameComponent() {
   const [playerRank, setPlayerRank] = useState(0);
   const [jumpCount, setJumpCount] = useState(0);
   const [bucksPerJump, setBucksPerJump] = useState(1);
-  const [nextMilestone, setNextMilestone] = useState(10);
+  const [nextMilestone, setNextMilestone] = useState(250);
   const gameContainerRef = useRef(null);
   const bottomNavbarRef = useRef(null);
   const [imageToggle, setImageToggle] = useState(true);
@@ -57,7 +57,7 @@ function GameComponent() {
     setBeraImageSrc(berajet2); // Use berajet2 as the initial image
     setJumpCount(0);
     setBucksPerJump(1);
-    setNextMilestone(10);
+    setNextMilestone(250);
   };
 
   const calculateBucks = (jumps) => {
@@ -134,10 +134,12 @@ function GameComponent() {
   }, [jump]);
 
   const calculateNextMilestone = useCallback((currentJumps) => {
-    const currentSet = Math.floor(currentJumps / 10);
-    const baseScore = 250 * (Math.pow(2, currentSet) - 1);
-    return baseScore + 250 * Math.pow(2, currentSet);
+    const milestoneInterval = 250; // New increment interval
+    const currentSet = Math.floor(currentJumps / milestoneInterval);
+    const baseScore = milestoneInterval * (Math.pow(2, currentSet) - 1);
+    return baseScore + milestoneInterval * Math.pow(2, currentSet);
   }, []);
+  
 
   useEffect(() => {
     setNextMilestone(calculateNextMilestone(jumpCount));
