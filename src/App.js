@@ -63,20 +63,21 @@ function GameComponent() {
   const calculateBucks = (jumps) => {
     let totalBucks = 0;
     let currentBucksPerJump = 1;
-
-    for (let i = 0; i < Math.floor(jumps / 10); i++) {
-      for (let j = 0; j < 10; j++) {
+  
+    for (let i = 0; i < Math.floor(jumps / 250); i++) {
+      for (let j = 0; j < 250; j++) {
         totalBucks += currentBucksPerJump;
       }
       currentBucksPerJump *= 2;
     }
-
-    for (let j = 0; j < jumps % 10; j++) {
+  
+    for (let j = 0; j < jumps % 250; j++) {
       totalBucks += currentBucksPerJump;
     }
-
+  
     return totalBucks;
   };
+  
 
   const jump = useCallback(() => {
     if (!isJumping && gameStarted && !gameOver) {
@@ -134,8 +135,8 @@ function GameComponent() {
 
   const calculateNextMilestone = useCallback((currentJumps) => {
     const currentSet = Math.floor(currentJumps / 10);
-    const baseScore = 10 * (Math.pow(2, currentSet) - 1);
-    return baseScore + 10 * Math.pow(2, currentSet);
+    const baseScore = 250 * (Math.pow(2, currentSet) - 1);
+    return baseScore + 250 * Math.pow(2, currentSet);
   }, []);
 
   useEffect(() => {
