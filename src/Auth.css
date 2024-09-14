@@ -89,17 +89,13 @@ body {
     resize: vertical;
   }
   
-  #modal .switch-view, #modal .report-problem {
+  #modal .switch-view{
     text-align: center;
     margin-top: 20px;
   }
   
   #modal .switch-view{
     color:#ff00ff;
-  }
-
-  #modal .report-problem{
-    color: red;
   }
 
   #modal .go-back {

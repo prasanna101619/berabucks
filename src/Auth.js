@@ -25,12 +25,6 @@ const Auth = () => {
                 <div className="switch-view">
                     Already have an account? <a href="#" onClick={(e) => { e.preventDefault(); showView('login'); }}>Login</a>
                 </div>
-                <br />
-                <div className="report-problem">
-                    <span className="warning-icon">&#9888;</span>
-                    Can't Register/Login?<br /><br />
-                    <button onClick={() => showView('report')}>Report Problem</button>
-                </div>
             </div>
 
             {/* Login View */}
@@ -41,23 +35,6 @@ const Auth = () => {
                 <button id="login-button">Login</button>
                 <div className="switch-view">
                     Not registered yet? <a href="#" onClick={(e) => { e.preventDefault(); showView('register'); }}>Register</a>
-                </div>
-                <br />
-                <div className="report-problem">
-                    <span className="warning-icon">&#9888;</span>
-                    Can't Register/Login?<br /><br />
-                    <button onClick={() => showView('report')}>Report Problem</button>
-                </div>
-            </div>
-
-            {/* Report Problem View */}
-            <div className={`view ${view === 'report' ? 'active' : ''}`} id="report-form">
-                <h2>Report Problem</h2>
-                <input type="text" id="report-username" placeholder="Telegram username" />
-                <textarea id="report-message" placeholder="Message"></textarea>
-                <button id="submit-report" onClick={() => { alert('Report submitted'); showView('register'); }}>Submit</button>
-                <div className="go-back">
-                    <a href="#" onClick={(e) => { e.preventDefault(); showView('register'); }}>Go Back</a>
                 </div>
             </div>
         </div>
