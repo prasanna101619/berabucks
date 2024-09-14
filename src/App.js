@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import './App.css';
 import Auth from './Auth'; 
+import FlashScreen from './FlashScreen';
 
 import playIcon from './assets/play.png';
 import raceIcon from './assets/race.png';
@@ -426,6 +427,7 @@ function App() {
         <Route path="/" element={<GameComponent />} />
         <Route path="/friends" element={<FriendsPage />} />
         <Route path="/auth" element={<Auth />} />
+        <Route path="/flash" element={<FlashScreen />} />
       </Routes>
     </Router>
   );
