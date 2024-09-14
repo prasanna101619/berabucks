@@ -19,8 +19,8 @@ const Auth = () => {
                 </center>
                 <br /><br />
                 <input type="text" id="register-username" placeholder="Telegram username" />
-                <input type="password" id="register-password" placeholder="Password" />
-                <input type="password" id="register-repassword" placeholder="Re-enter Password" />
+                <input type="password" id="register-password" placeholder="Code sent on the bot" />
+                <input type="password" id="register-repassword" placeholder="Referral code" />
                 <button id="register-button">Register</button>
                 <div className="switch-view">
                     Already have an account? <a href="#" onClick={(e) => { e.preventDefault(); showView('login'); }}>Login</a>
