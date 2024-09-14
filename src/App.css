@@ -21,8 +21,6 @@ html {
 }
 
 .game-wrapper {
-  position: relative;
-  width: 100vw;
   display: flex; /* Enable flexbox */
   flex-direction: column; /* Stack children vertically */
   align-items: center; /* Center children horizontally */
@@ -37,6 +35,10 @@ html {
   left: 0;
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .stars, .clouds {
@@ -124,16 +126,13 @@ html {
   border-radius: 10px;
   box-shadow: 0 0 20px var(--primary-color);
   overflow: hidden;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   display: flex; /* Enable flexbox for children */
   flex-direction: column; /* Stack children vertically */
   align-items: center; /* Center children horizontally */
   justify-content: center; /* Center children vertically */
   position: relative; /* Positioning it relatively */
-  z-index:1000;
-  margin-bottom: 20px; /* Space between game container and buttons */
+  z-index: 1000;
+  margin: 20px auto; /* Center horizontally with margin */
 }
 
 .bera {
@@ -528,15 +527,29 @@ th, td {
   margin: 5px 0;
   font-size: 1.2em; /* Added font size increase */
 }
+.total-stats-container {
+  clear: both; /* Ensures it starts below floated elements */
+  display: flex; /* Use flexbox for layout */
+  justify-content: center; /* Adjusts spacing between items */
+  align-items: center;
+  margin-top: 20px; /* Adds space above the total stats */
+  width: 90%; /* Match the width of the game container */
+  max-width: 800px; /* Match the max width of the game container */
+  text-align: center; /* Center text */
+  margin: 0 auto; /* Center horizontally */
+  z-index: 3;
+}
 
 .total-bucks {
   display: flex;
   align-items: center;
   margin-bottom: 5px;
+  z-index: 1000;
 }
 
 .max-win {
   font-size: 0.9em;
+  z-index: 1000;
 }
 
 .player-name-container {
@@ -549,9 +562,8 @@ th, td {
 }
 
 .total-coins-container {
-  position: absolute; /* Positioning it absolutely */
-  top: 50px; /* Adjust as needed */
-  right: 10px; /* Align to the right */
+  position: relative; /* Changed to relative positioning */
+  margin-top: 20px; /* Added margin to create space below the game container */
   color: #ff00ff; /* Match the secondary color */
   text-align: right; /* Align text to the right */
 }
@@ -583,6 +595,7 @@ th, td {
   display: flex;
   flex-direction: column; /* Stack max win label and value */
   align-items: flex-end; /* Align to the right */
+  margin-top: 10px; /* Added margin for spacing */
 }
 
 .max-win-text {

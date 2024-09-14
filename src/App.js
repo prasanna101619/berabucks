@@ -39,7 +39,7 @@ function GameComponent() {
   const [playerRank, setPlayerRank] = useState(0);
   const [jumpCount, setJumpCount] = useState(0);
   const [bucksPerJump, setBucksPerJump] = useState(1);
-  const [nextMilestone, setNextMilestone] = useState(250);
+  const [nextMilestone, setNextMilestone] = useState(100);
   const gameContainerRef = useRef(null);
   const bottomNavbarRef = useRef(null);
   const [imageToggle, setImageToggle] = useState(true);
@@ -57,21 +57,21 @@ function GameComponent() {
     setBeraImageSrc(berajet2); // Use berajet2 as the initial image
     setJumpCount(0);
     setBucksPerJump(1);
-    setNextMilestone(250);
+    setNextMilestone(100);
   };
 
   const calculateBucks = (jumps) => {
     let totalBucks = 0;
     let currentBucksPerJump = 1;
   
-    for (let i = 0; i < Math.floor(jumps / 250); i++) {
-      for (let j = 0; j < 250; j++) {
+    for (let i = 0; i < Math.floor(jumps / 100); i++) {
+      for (let j = 0; j < 100; j++) {
         totalBucks += currentBucksPerJump;
       }
       currentBucksPerJump *= 2;
     }
   
-    for (let j = 0; j < jumps % 250; j++) {
+    for (let j = 0; j < jumps % 100; j++) {
       totalBucks += currentBucksPerJump;
     }
   
@@ -134,7 +134,7 @@ function GameComponent() {
   }, [jump]);
 
   const calculateNextMilestone = useCallback((currentJumps) => {
-    const milestoneInterval = 250; // New increment interval
+    const milestoneInterval = 100; // New increment interval
     const currentSet = Math.floor(currentJumps / milestoneInterval);
     const baseScore = milestoneInterval * (Math.pow(2, currentSet) - 1);
     return baseScore + milestoneInterval * Math.pow(2, currentSet);
@@ -276,135 +276,137 @@ function GameComponent() {
         <div className="parallax-bg">
           <div className="stars"></div>
           <div className="clouds"></div>
-          <div className="twinkling"></div> // Added twinkling effect back here
-      <div className="header">
-        <h1 className="header-title">BERA BUCKS</h1>
-      </div>
-      <div className="player-name-container">
-        <span className="player-name-text">{playerName}</span>
-      </div>
-      <div className="total-coins-container">
-        <div className="coins-info">
-          <img src={airdropIcon} alt="Airdrop" className="airdrop-icon" />
-          <span className="total-coins"><span style={{ color: '#00ffff' }}>{totalBucks}</span></span>
-        </div>
-        <div className="max-win-container">
-          <span className="max-win-text">Max Win: <span style={{ color: '#00ffff' }}>{maxWin}</span></span>
-        </div>
-      </div>
-      <div className="game-container" ref={gameContainerRef}>
-        <div className="game-stats">
-          <div className="bucks-display">
-            <img src={airdropIcon} alt="Airdrop" className="airdrop-icon" />
-            <span>{bucks}</span>
+          <div className="twinkling"></div>
+          <div className="header">
+            <h1 className="header-title">BERA BUCKS</h1>
           </div>
-          <span className="next-milestone-hint" style={{ color: '#ff00ff', textShadow: '0 0 10px #ff00ff' }}>Next Milestone: <span style={{ color: '#00ffff' }}>{nextMilestone}</span></span>
-        </div>
-        <img
-          src={beraImageSrc}
-          alt="Bera"
-          className="bera"
-          style={{
-            bottom: beraBottom,
-            width: BERA_WIDTH,
-            height: BERA_HEIGHT,
-            position: 'absolute',
-            left: '50px',
-          }}
-        />
-        <img
-          src={astroidImage}
-          alt="Astroid"
-          className={`astroid ${gameStarted && !gameOver ? 'rotating' : ''}`} // Apply rotating class conditionally
-          style={{
-            left: astroidLeft,
-            width: ASTROID_WIDTH,
-            height: ASTROID_HEIGHT,
-            position: 'absolute',
-            bottom: '0',
-          }}
-        />
-        {!gameStarted && !showPopup && (
-          <div className="menu-buttons">
-            <button className="start-game-button" onClick={startGame}>
-              Start Game
-            </button>
-            <button className="leaderboard-button" onClick={toggleLeaderboard}>
-              Leaderboard
-            </button>
+          <div className="player-name-container">
+            <span className="player-name-text">{playerName}</span>
+          </div>      
+          <div className="game-container" ref={gameContainerRef}>
+            <div className="game-stats">
+              <div className="bucks-display">
+                <img src={airdropIcon} alt="Airdrop" className="airdrop-icon" />
+                <span>{bucks}</span>
+              </div>
+              <span className="next-milestone-hint" style={{ color: '#ff00ff', textShadow: '0 0 10px #ff00ff' }}>Next Milestone: <span style={{ color: '#00ffff' }}>{nextMilestone}</span></span>
+            </div>
+            <img
+              src={beraImageSrc}
+              alt="Bera"
+              className="bera"
+              style={{
+                bottom: beraBottom,
+                width: BERA_WIDTH,
+                height: BERA_HEIGHT,
+                position: 'absolute',
+                left: '50px',
+              }}
+            />
+            <img
+              src={astroidImage}
+              alt="Astroid"
+              className={`astroid ${gameStarted && !gameOver ? 'rotating' : ''}`}
+              style={{
+                left: astroidLeft,
+                width: ASTROID_WIDTH,
+                height: ASTROID_HEIGHT,
+                position: 'absolute',
+                bottom: '0',
+              }}
+            />
+            {!gameStarted && !showPopup && (
+              <div className="menu-buttons">
+                <button className="start-game-button" onClick={startGame}>
+                  Start Game
+                </button>
+                <button className="leaderboard-button" onClick={toggleLeaderboard}>
+                  Leaderboard
+                </button>
+              </div>
+            )}
           </div>
-        )}
-      </div>
-      {showPopup && (
-        <div className="popup">
-          <div style={{color:'red', fontWeight:'bold'}}>Game Over!</div>
-          <div style={{color:'#fff'}}>Bucks: {bucks}</div>
-        </div>
-      )}
-
-      {showLeaderboard && (
-        <div className="leaderboard-popup">
-          <h2>Leaderboard</h2>
-          <span className="close-icon" onClick={toggleLeaderboard}>&times;</span>
-          <div className="player-info">
-            <table>
-              <tr>
-                <td style={{ color: '#ff00ff' }}>Name: <span style={{ color: '#00ffff' }}>{playerName}</span></td>
-                <td style={{ color: '#ff00ff' }}>Rank: <span style={{ color: '#00ffff' }}>{playerRank}</span></td>
-                <td style={{ color: '#ff00ff' }}>MaxWin: <span style={{ color: '#00ffff' }}>{maxWin}</span></td>
-              </tr>
-            </table>
-          </div>
-          <div className="leaderboard-table-container" style={{ overflowY: 'hidden' }}>
-            <table className="leaderboard-table">
-              <thead>
-                <tr>
-                  <th>Rank</th>
-                  <th>Name</th>
-                  <th>MaxWin</th>
-                </tr>
-              </thead>
-            </table>
-            <div className="leaderboard-table-body-container" style={{ maxHeight: '300px', overflowY: 'auto' }}>
-              <table className="leaderboard-table">
-                <tbody>
-                  {generateLeaderboardRecords().map((record, index) => (
-                    <tr key={index}>
-                      <td>{record.rank}</td>
-                      <td>{record.name}</td>
-                      <td>{record.maxWin}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
+          <div className="total-stats-container" style={{ clear: 'both', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <div className="total-coins-container">
+              <div className="coins-info">
+                <img src={airdropIcon} alt="Airdrop" className="airdrop-icon" />
+                <span className="total-coins"><span style={{ color: '#00ffff' }}>{totalBucks}</span></span>
+               </div>
+              <div className="max-win-container">
+                <span className="max-win-text">Max Win: <span style={{ color: '#00ffff' }}>{maxWin}</span></span>
+              </div>
             </div>
           </div>
+          {showPopup && (
+            <div className="popup">
+              <div style={{color:'red', fontWeight:'bold'}}>Game Over!</div>
+              <div style={{color:'#fff'}}>Bucks: {bucks}</div>
+            </div>
+          )}
+
+          {showLeaderboard && (
+            <div className="leaderboard-popup">
+              <h2>Leaderboard</h2>
+              <span className="close-icon" onClick={toggleLeaderboard}>&times;</span>
+              <div className="player-info">
+                <table>
+                  <tr>
+                    <td style={{ color: '#ff00ff' }}>Name: <span style={{ color: '#00ffff' }}>{playerName}</span></td>
+                    <td style={{ color: '#ff00ff' }}>Rank: <span style={{ color: '#00ffff' }}>{playerRank}</span></td>
+                    <td style={{ color: '#ff00ff' }}>MaxWin: <span style={{ color: '#00ffff' }}>{maxWin}</span></td>
+                  </tr>
+                </table>
+              </div>
+              <div className="leaderboard-table-container" style={{ overflowY: 'hidden' }}>
+                <table className="leaderboard-table">
+                  <thead>
+                    <tr>
+                      <th>Rank</th>
+                      <th>Name</th>
+                      <th>MaxWin</th>
+                    </tr>
+                  </thead>
+                </table>
+                <div className="leaderboard-table-body-container" style={{ maxHeight: '300px', overflowY: 'auto' }}>
+                  <table className="leaderboard-table">
+                    <tbody>
+                      {generateLeaderboardRecords().map((record, index) => (
+                        <tr key={index}>
+                          <td>{record.rank}</td>
+                          <td>{record.name}</td>
+                          <td>{record.maxWin}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          )}
+          
+          <div className="bottom-navbar" ref={bottomNavbarRef}>
+            <div className="nav-item" onClick={() => handleNavClick('play')}>
+              <img src={playIcon} alt="Play" />
+              <span>Play</span>
+            </div>
+            <div className="nav-item" onClick={() => handleNavClick('race')}>
+              <img src={raceIcon} alt="Race" />
+              <span>Race</span>
+            </div>
+            <div className="nav-item" onClick={() => handleNavClick('earn')}>
+              <img src={earnIcon} alt="Earn" />
+              <span>Earn</span>
+            </div>
+            <div className="nav-item" onClick={() => handleNavClick('friends')}>
+              <img src={friendsIcon} alt="Friends" />
+              <span>Friends</span>
+            </div>
+            <div className="nav-item" onClick={() => handleNavClick('airdrop')}>
+              <img src={airdropIcon} alt="Airdrop" />
+              <span>Airdrop</span>
+            </div>
+          </div>      
         </div>
-      )}
-      
-      <div className="bottom-navbar" ref={bottomNavbarRef}>
-        <div className="nav-item" onClick={() => handleNavClick('play')}>
-          <img src={playIcon} alt="Play" />
-          <span>Play</span>
-        </div>
-        <div className="nav-item" onClick={() => handleNavClick('race')}>
-          <img src={raceIcon} alt="Race" />
-          <span>Race</span>
-        </div>
-        <div className="nav-item" onClick={() => handleNavClick('earn')}>
-          <img src={earnIcon} alt="Earn" />
-          <span>Earn</span>
-        </div>
-        <div className="nav-item" onClick={() => handleNavClick('friends')}>
-          <img src={friendsIcon} alt="Friends" />
-          <span>Friends</span>
-        </div>
-        <div className="nav-item" onClick={() => handleNavClick('airdrop')}>
-          <img src={airdropIcon} alt="Airdrop" />
-          <span>Airdrop</span>
-        </div>
-      </div>      
-      </div>
       </div>
 
       {showComingSoon && (
