@@ -1,7 +1,7 @@
 /* Auth.css */
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Comic Sans MS', Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -35,6 +35,7 @@ body {
   }
   
   #modal input, #modal textarea {
+    font-family: 'Comic Sans MS';
     width: 93%;
     padding: 10px;
     margin-bottom: 10px;
@@ -44,6 +45,7 @@ body {
   }
   
   #modal button {
+    font-family: 'Comic Sans MS';
     width: 100%;
     padding: 10px;
     border: none;
@@ -57,11 +59,6 @@ body {
   
   #modal button:hover {
     background-color: #ff00ff;
-  }
-  
-  #modal a {
-    color: #007bff;
-    text-decoration: none;
   }
   
   #modal a:hover {
@@ -101,10 +98,6 @@ body {
   #modal .go-back {
     text-align: center;
     margin-top: 20px;
-  }
-  
-  #modal .go-back a {
-    color: #007bff;
   }
   
   .warning-icon {
