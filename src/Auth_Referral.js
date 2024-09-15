@@ -178,7 +178,7 @@ function Auth_Referral() {
              
      }}>Let's Go</button>
      <br></br>
-     {msg}
+     <span style={{color:'#fff'}}>{msg}</span>     
   </div>
 </div>
      
