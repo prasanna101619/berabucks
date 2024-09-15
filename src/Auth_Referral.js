@@ -91,13 +91,7 @@ function Auth_Referral() {
       
 <div id="modal">
   <div className="view active" id="register-view">
-    <h2>Register</h2>
-    <center>
-      <span style={{ color: 'red' }}>&#9888;</span>
-      <i style={{ color: 'grey' }}>
-        Give your original username <br /> otherwise you may lose the airdrop
-      </i>
-    </center>
+    <h2>&#x1F43B; Bera Let's Go !!! &#x1F680;</h2>
     <br />
     <br />
     <input id="register-username"  type="text" placeholder="Telegram username (without '@')" onChange={(e)=>{
@@ -110,12 +104,6 @@ function Auth_Referral() {
     <input id="register-repassword"  type="text" placeholder="Referral Code ( Optional )" onChange={(e)=>{
       setReferralC(e.target.value)
      }}/>
-     <center>
-     
-      <i style={{ color: 'grey' }}>
-       If you don't have a Refferal Code, <br /> leave it empty
-      </i>
-    </center>
     <br />
     <br />
 

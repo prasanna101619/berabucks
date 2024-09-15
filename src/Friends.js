@@ -18,21 +18,21 @@ const FriendsPage = () => {
 
 	const copyInviteLink = () => {
 		navigator.clipboard.writeText(
-			"I just came across Bera Bucks. I've never seen such a wonderful game and they're offering a special referral bonus right now.\n" +
-			"If you use my referral code to join, we both get 10k coins each! 🎉\n" +
-			"Referral code: Prasanna101\n" +
-			"Game Link: https://t.me/berabucks"
+			`&#x1F43B; I just came across Bera Bucks.\n
+			Use my referral code to claim 25k coins for free! 🎉\n
+			Referral code:   ${localStorage.getItem('referralCode')} \n
+			Play and Earn $BeraBucks Airdrop!!! \n
+			Game Link: https://t.me/bera_bucks`
 		);
 		setShowCopiedPopup(true);
 		setTimeout(() => setShowCopiedPopup(false), 2000);
 	};
-	
 
 	const handleNavClick = (option) => {
 		if (option === 'play') {
 			navigate('/');
 		} else if (option === 'friends') {
-			// Already on friends page, do nothing
+
 		} else if (option === 'earn' || option === 'race' || option === 'airdrop') {
 			setShowComingSoon(true);
 			setTimeout(() => {
@@ -48,14 +48,14 @@ const FriendsPage = () => {
 			<div className="clouds"></div>
 			<div className="invite-page">
 				<div className="invite-container">
-					<h1>Invite Your Friends</h1> {/* Ensure this is correctly placed */}
+					<h1>Invite Your Friends</h1> { }
 					<div className="invite-content">
 						<img src={inviteIcon} alt="Invite" className="invite-icon" />
 						<p>
-						Share the fun with your friends and both of you can earn 10k coins when they use your referral link in Bera Bucks!
+						Share the fun with your friends and both of you can earn 25k coins when they use your referral link in Bera Bucks!
 						</p>
 						<div className="invite-link">
-							<input type="text" readOnly value="Refr Code: Prasanna101" />
+						<input type="text" readOnly value=		{localStorage.getItem('referralCode')} />
 							<button onClick={copyInviteLink}>
 								Copy Link
 							</button>
