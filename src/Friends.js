@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './App.css';
+import './Home.css';
 import './Friends.css';
 
 import playIcon from './assets/play.png';
