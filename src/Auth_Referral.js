@@ -104,7 +104,7 @@ function Auth_Referral() {
     </center>
     <br />
     <br />
-    <input type="text" placeholder="Telegram username" onChange={(e)=>{
+    <input type="text" placeholder="Telegram username (without '@')" onChange={(e)=>{
       setUsername(e.target.value)
      }}/>
     <input type="password" placeholder="Code sent on BeraBuck Bot" onChange={(e)=>{

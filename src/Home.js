@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import './Home.css';
-import Auth from './Auth'; 
+import Auth from './Auth_Referral'; 
 
 import { db } from "./firebase-config.js";
 import {
@@ -246,9 +246,9 @@ function GameComponent() {
     const data = await getDocs(userCollection);
      
     let dbdata= data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-
+    console.log(dbdata);
    dbdata.sort((a, b) => b.highscore - a.highscore);
-
+   setRankArray(dbdata);
    const index =dbdata.findIndex(item => item.username === localStorage.getItem('userName'));
    
     setPlayerRank(index !== -1 ? index + 1 : null);
