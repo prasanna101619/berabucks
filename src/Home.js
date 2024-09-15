@@ -359,12 +359,11 @@ function GameComponent() {
                   Leaderboard
                 </button>
                 <button className="leaderboard-button" onClick={()=>{
-        localStorage.removeItem('userNum');
-        localStorage.removeItem('userName');
-        localStorage.removeItem('userId');
-        window.location.reload();
-
-      }}>Clear data from localStorage</button>
+                localStorage.removeItem('userNum');
+                localStorage.removeItem('userName');
+                localStorage.removeItem('userId');
+                window.location.reload();
+            }}>Clear data from localStorage</button>
               </div>
             )}
           </div>

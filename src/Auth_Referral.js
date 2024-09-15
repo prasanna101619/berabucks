@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import { useParams,useNavigate } from 'react-router-dom';
 import logo from './logo.svg';
-import './App.css';
+import './Auth.css';
 import axios from 'axios';
 import { db } from "./firebase-config.js";
 import {
@@ -88,13 +88,9 @@ function Auth_Referral() {
 
   return (
     <div className="App">
-      <br></br><br></br><br></br><br></br><br></br><br></br>
-      <br></br><br></br><br></br><br></br><br></br><br></br><br></br>
-
-      <button className="open-modal">Open Modal</button>
-
-<div className="modal">
-  <div className="view">
+      
+<div id="modal">
+  <div className="view active" id="register-view">
     <h2>Register</h2>
     <center>
       <span style={{ color: 'red' }}>&#9888;</span>
@@ -104,14 +100,14 @@ function Auth_Referral() {
     </center>
     <br />
     <br />
-    <input type="text" placeholder="Telegram username (without '@')" onChange={(e)=>{
+    <input id="register-username"  type="text" placeholder="Telegram username (without '@')" onChange={(e)=>{
       setUsername(e.target.value)
      }}/>
-    <input type="password" placeholder="Code sent on BeraBuck Bot" onChange={(e)=>{
+    <input id="register-password"  type="password" placeholder="Code sent on BeraBuck Bot" onChange={(e)=>{
       setCode(e.target.value)
      }}/>
 
-    <input type="text" placeholder="Referral Code ( Optional )" onChange={(e)=>{
+    <input id="register-repassword"  type="text" placeholder="Referral Code ( Optional )" onChange={(e)=>{
       setReferralC(e.target.value)
      }}/>
      <center>
@@ -123,7 +119,7 @@ function Auth_Referral() {
     <br />
     <br />
 
-    <button onClick={async()=>{
+    <button id="register-button" onClick={async()=>{
        const data = await getDocs(userCollection);
      
        let dbdata= data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
