@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import flashs from './assets/beraflash.gif';
+import flashs from './assets/beraflashs.gif';
 import './Flash.css';
 
 const Flash = () => {
