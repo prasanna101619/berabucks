@@ -13,12 +13,11 @@ const Flash = () => {
         else{
             navigate('/Auth');}
     }, 3000);
-
     return () => clearTimeout(timer);
   }, [navigate]);
 
   return (
-    <div style={{height:'100vh', width:'100vw'}}>
+    <div style={{height:'100vh', width:'100vw',display:'flex',alignItems:'center',justifyContent:'center'}}>
       <img src={flashs} />
     </div>
   );

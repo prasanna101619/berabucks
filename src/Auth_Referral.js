@@ -151,6 +151,7 @@ function Auth_Referral() {
                                         userDoc = doc(db, "user", dbdata[i].id);
                                         newFields = { username:dbdata[i].username,otp:dbdata[i].otp,friends:[...dbdata[i].friends,dbdata[j].username],coins:dbdata[i].coins+25000,highscore:0 };
                                         await updateDoc(userDoc, newFields);
+                                        localStorage.setItem('coins',25000);
                                         window.location.reload();
                                       }
                                   }
