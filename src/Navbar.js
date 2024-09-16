@@ -19,7 +19,7 @@ const Navbar = () => {
     return (
         <>
             <div id="navbar">
-                <Link to="/" className="nav-item" id="nav-play">
+                <Link to="/Home" className="nav-item" id="nav-play">
                     <img src={playIcon} alt="Play" className="nav-icon" />
                     <span>Play</span>
                 </Link>
