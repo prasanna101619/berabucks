@@ -19,8 +19,7 @@ const FriendsPage = () => {
 	const copyInviteLink = () => {
 		navigator.clipboard.writeText(
 			`🎮I just came across Bera Bucks. Use my referral code to claim 25k coins for free! 🎉\n
-			Referral code:   ${localStorage.getItem('referralCode')}  Play and Earn $BeraBucks Airdrop!!! 
-			Game Link: https://t.me/bera_bucks`
+			Referral code:   ${localStorage.getItem('referralCode')}  Play and Earn $BeraBucks Airdrop!!! Game Link: https://t.me/bera_bucks`
 		);
 		setShowCopiedPopup(true);
 		setTimeout(() => setShowCopiedPopup(false), 2000);
