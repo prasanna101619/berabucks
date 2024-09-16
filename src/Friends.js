@@ -30,7 +30,7 @@ const FriendsPage = () => {
 
 	const handleNavClick = (option) => {
 		if (option === 'play') {
-			navigate('/');
+			navigate('/Home');
 		} else if (option === 'friends') {
 
 		} else if (option === 'earn' || option === 'race' || option === 'airdrop') {
