@@ -121,7 +121,7 @@ html {
   width: 90%;
   max-width: 800px;
   height: 300px;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.1);
   border: 2px solid var(--primary-color);
   border-radius: 10px;
   box-shadow: 0 0 20px var(--primary-color);
