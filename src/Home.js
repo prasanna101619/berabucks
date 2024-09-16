@@ -112,7 +112,7 @@ function GameComponent() {
       let jumpCount = 0;
       const jumpInterval = setInterval(() => {
         const gravity = -1000; // Reduced gravity value for slower fall
-        const jumpHeight = 250;
+        const jumpHeight = 150;
         const jumpIncrement = jumpHeight / 600;
 
         if (jumpCount >= 20) {
