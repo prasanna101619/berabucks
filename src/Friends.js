@@ -13,6 +13,7 @@ import inviteIcon from './assets/friends.png';
 const FriendsPage = () => {
 	const [showCopiedPopup, setShowCopiedPopup] = useState(false);
 	const [showComingSoon, setShowComingSoon] = useState(false);
+	const [activeSection, setActiveSection] = useState('friends'); // New state for active section
 	const bottomNavbarRef = useRef(null);
 	const navigate = useNavigate();
 
@@ -29,13 +30,43 @@ const FriendsPage = () => {
 		if (option === 'play') {
 			navigate('/Home');
 		} else if (option === 'friends') {
-
+			setActiveSection('friends'); // Set active section
+		} else if (option === 'leaderboard') {
+			setActiveSection('leaderboard'); // Set active section
 		} else if (option === 'earn' || option === 'race' || option === 'airdrop') {
 			setShowComingSoon(true);
 			setTimeout(() => {
 				setShowComingSoon(false);
 			}, 2000);
 		}
+	};
+
+	const friendsData = [
+		{ slNo: 1, name: 'Alice', coins: 25000 },
+		{ slNo: 2, name: 'Bob', coins: 30000 },
+		{ slNo: 3, name: 'Charlie', coins: 15000 },
+		{ slNo: 4, name: 'David', coins: 20000 },
+		{ slNo: 5, name: 'Eve', coins: 35000 },
+		{ slNo: 6, name: 'Frank', coins: 40000 },
+		{ slNo: 7, name: 'Grace', coins: 45000 },
+		{ slNo: 8, name: 'Hank', coins: 50000 },
+		{ slNo: 9, name: 'Ivy', coins: 55000 },
+		{ slNo: 10, name: 'Jack', coins: 60000 },
+	];
+
+	const leaderboardData = Array.from({ length: 100 }, (_, i) => ({
+		slNo: i + 1,
+		name: `User${i + 1}`,
+		invites: Math.floor(Math.random() * 100),
+	}));
+
+	const formatNumber = (num) => {
+		if (num >= 1000000) {
+			return (num / 1000000).toFixed(1) + 'm';
+		} else if (num >= 1000) {
+			return (num / 1000).toFixed(1) + 'k';
+		}
+		return num;
 	};
 
 	return (
@@ -63,6 +94,52 @@ const FriendsPage = () => {
 							Copied!
 						</div>
 					)}
+				</div>
+				<div className="invite-container">
+					<div className="section-container">
+						<div 
+							className={`section ${activeSection === 'friends' ? 'active' : ''}`} 
+							onClick={() => handleNavClick('friends')}
+						>
+							Friends
+						</div>
+						<div 
+							className={`section leaderboard ${activeSection === 'leaderboard' ? 'active' : ''}`} 
+							onClick={() => handleNavClick('leaderboard')}
+						>
+							Leaderboard
+						</div>
+					</div>
+					<div className="table-container">
+						<table>
+							<thead>
+								<tr>
+									<th className="slno-column">Sl.No</th>
+									<th className="name-column">Name</th>
+									{activeSection === 'friends' ? <th>Total Coins</th> : <th>Invites</th>}
+								</tr>
+							</thead>
+							<tbody>
+								{activeSection === 'friends' ? (
+									friendsData.map((friend) => (
+										<tr key={friend.slNo}>
+											<td>{friend.slNo}</td>
+											<td>{friend.name}</td>
+											<td>{formatNumber(friend.coins)}</td>
+										</tr>
+									))
+								) : (
+									leaderboardData.map((leader) => (
+										<tr key={leader.slNo}>
+											<td>{leader.slNo}</td>
+											<td>{leader.name}</td>
+											<td>{leader.invites}</td>
+										</tr>
+									))
+								)}
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 
