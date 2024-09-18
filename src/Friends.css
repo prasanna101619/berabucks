@@ -1,18 +1,21 @@
 body {
     margin: 0; /* Remove default margin */
-    overflow: hidden; /* Hide overflow for parallax effect */
+    overflow-y: auto; /* Enable vertical scrolling */
+    scroll-behavior: smooth; /* Smooth scrolling */
+    height: 100vh; /* Full height */
 }
 
 .App {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* Center content vertically */
-    height: 100vh;
+    justify-content: flex-start; /* Align content to the top */
+    min-height: 100vh; /* Ensure it takes full height */
     padding: 10px 10px 60px;
     box-sizing: border-box;
     max-width: 100vw;
     position: relative;
+    overflow-y: auto; /* Enable vertical scrolling */
 }
 
 /* Background layers */
@@ -57,21 +60,26 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: calc(100vh - 60px); /* Adjust for bottom navbar */
+    width: 100%;
     position: relative; /* Ensure it sits above the background layers */
 }
 
 .invite-container {
     background-color: rgba(0, 0, 0, 0.3);
-    border: 0 0 2px solid #00ffff; /* Added border */
+    border: 2px solid #00ffff; /* Corrected border */
     border-radius: 10px;
     padding: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0, 255, 255, 0.5); /* Updated box shadow */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 0 20px rgba(0, 255, 255, 0.5);
     text-align: center;
     max-width: 400px;
     width: 90%;
-    color: #00ffff;    
+    color: #00ffff;
     z-index: 2;
+    margin-bottom: 20px;
+}
+
+.invite-container:nth-child(2) {
+    border-color: #ff00ff; /* Border color for the second container */
 }
 
 .invite-container h1 {
@@ -185,3 +193,84 @@ body {
   from {background-position: 0 0;}
   to {background-position: 10000px 0;}
 }
+
+.section-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.section {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 2px solid #00ffff;
+    border-radius: 10px;
+    padding: 10px; /* Reduced padding */
+    margin: 0 5px; /* Reduced margin */
+    cursor: pointer;
+    color: #00ffff;
+    text-align: center;
+    width: 100px; /* Reduced width */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.section.active {
+    background-color: #00ffff;
+    color: #000;
+}
+
+/* Leaderboard section */
+.section.leaderboard {
+    border: 2px solid #ff00ff; /* Border color for leaderboard section */
+    color: #ff00ff; /* Text color for leaderboard section */
+}
+
+.section.leaderboard.active {
+    background-color: #ff00ff; /* Active background color */
+    color: #000; /* Active text color */
+}
+
+.table-container {
+    margin-top: 20px;
+    width: 100%;
+    overflow-x: auto;
+    overflow: hidden; /* Ensure rounded corners are visible */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+    border: none; /* Remove table border */
+}
+
+th, td {
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #1a1a1a; /* Dark grey background for table heading */
+    color: #ff00ff; /* Table heading color */
+}
+
+td {
+    color: white; /* Table cell text color */
+}
+
+tbody tr:nth-child(odd) {
+    background-color: rgba(0, 0, 0, 0.3) !important; /* Background color for odd rows */
+}
+
+tbody tr:nth-child(even) {
+    background-color: #1b1b1b !important; /* Background color for even rows */
+}
+
+.slno-column {
+    width: 50px; /* Reduced width for Sl. No column */
+}
+
+.name-column {
+    width: 200px; /* Increased width for Name column */
+}
+
+/* ... existing code ... */
