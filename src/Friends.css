@@ -270,7 +270,7 @@ tbody tr:nth-child(even) {
 }
 
 .name-column {
-    width: 200px; /* Increased width for Name column */
+    width: 150px; /* Increased width for Name column */
 }
 
 /* ... existing code ... */
