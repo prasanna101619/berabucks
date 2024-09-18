@@ -116,7 +116,7 @@ const FriendsPage = () => {
 								<tr>
 									<th className="slno-column">Sl.No</th>
 									<th className="name-column">Name</th>
-									{activeSection === 'friends' ? <th>Total Coins</th> : <th>Invites</th>}
+									{activeSection === 'friends' ? <th>Coins</th> : <th>Invites</th>}
 								</tr>
 							</thead>
 							<tbody>
