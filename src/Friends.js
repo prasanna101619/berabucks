@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Home.css';
 import './Friends.css';
@@ -10,13 +10,42 @@ import friendsIcon from './assets/friends.png';
 import airdropIcon from './assets/airdrop.png';
 import inviteIcon from './assets/friends.png';
 
+import { db } from "./firebase-config.js";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
+
 const FriendsPage = () => {
+
+	const [leaderboardData,setLeaderboardData]=useState([])
+	const [friendsData,setFriendsData] = useState(JSON.parse(localStorage.getItem('friends')))
 	const [showCopiedPopup, setShowCopiedPopup] = useState(false);
 	const [showComingSoon, setShowComingSoon] = useState(false);
 	const [activeSection, setActiveSection] = useState('friends'); // New state for active section
 	const bottomNavbarRef = useRef(null);
 	const navigate = useNavigate();
-
+	const getFriendsData=async()=>{
+		let data = await getDocs(userCollection);
+     
+			let dbdata= data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+			let user=dbdata.find(user=>user.username==localStorage.getItem('userName'))
+			
+			
+			console.log(user)
+			let friendsObjects = user.friends.map(friendUsername => 
+				dbdata.find(user => user.username === friendUsername)
+			  );
+			  friendsObjects.sort((a, b) => b.coins - a.coins);
+		   setFriendsData( friendsObjects)
+	}
+	useEffect(()=>{
+		getFriendsData()
+	},[])
 	const copyInviteLink = () => {
 		navigator.clipboard.writeText(
 			`🎮I just came across Bera Bucks. Use my referral code to claim 25k coins for free! 🎉\n
@@ -25,13 +54,34 @@ const FriendsPage = () => {
 		setShowCopiedPopup(true);
 		setTimeout(() => setShowCopiedPopup(false), 2000);
 	};
+	const userCollection = collection(db, "user");
 
-	const handleNavClick = (option) => {
+	const handleNavClick = async (option) => {
 		if (option === 'play') {
 			navigate('/Home');
 		} else if (option === 'friends') {
-			setActiveSection('friends'); // Set active section
+			setActiveSection('friends'); 
+			let data = await getDocs(userCollection);
+     
+			let dbdata= data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+			let user=dbdata.find(user=>user.username==localStorage.getItem('userName'))
+			
+			
+			console.log(user)
+			let friendsObjects = user.friends.map(friendUsername => 
+				dbdata.find(user => user.username === friendUsername)
+			  );
+			  friendsObjects.sort((a, b) => b.coins - a.coins);
+		   setFriendsData( friendsObjects)
+		//    setRankArray(dbdata);
+		//    const index =dbdata.findIndex(item => item.username === localStorage.getItem('userName'));
 		} else if (option === 'leaderboard') {
+
+			let data = await getDocs(userCollection);
+     
+			let dbdata= data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+			let leaderboardObjects=dbdata.sort((a,b)=>b.friends.length-a.friends.length)
+			setLeaderboardData(leaderboardObjects.slice(0,1000))
 			setActiveSection('leaderboard'); // Set active section
 		} else if (option === 'earn' || option === 'race' || option === 'airdrop') {
 			setShowComingSoon(true);
@@ -41,24 +91,9 @@ const FriendsPage = () => {
 		}
 	};
 
-	const friendsData = [
-		{ slNo: 1, name: 'Alice', coins: 25000 },
-		{ slNo: 2, name: 'Bob', coins: 30000 },
-		{ slNo: 3, name: 'Charlie', coins: 15000 },
-		{ slNo: 4, name: 'David', coins: 20000 },
-		{ slNo: 5, name: 'Eve', coins: 35000 },
-		{ slNo: 6, name: 'Frank', coins: 40000 },
-		{ slNo: 7, name: 'Grace', coins: 45000 },
-		{ slNo: 8, name: 'Hank', coins: 50000 },
-		{ slNo: 9, name: 'Ivy', coins: 55000 },
-		{ slNo: 10, name: 'Jack', coins: 60000 },
-	];
 
-	const leaderboardData = Array.from({ length: 100 }, (_, i) => ({
-		slNo: i + 1,
-		name: `User${i + 1}`,
-		invites: Math.floor(Math.random() * 100),
-	}));
+
+	
 
 	const formatNumber = (num) => {
 		if (num >= 1000000) {
@@ -121,19 +156,19 @@ const FriendsPage = () => {
 							</thead>
 							<tbody>
 								{activeSection === 'friends' ? (
-									friendsData.map((friend) => (
+									friendsData.map((friend,index) => (
 										<tr key={friend.slNo}>
-											<td>{friend.slNo}</td>
-											<td>{friend.name}</td>
+											<td>{index+1}</td>
+											<td>{friend.username}</td>
 											<td>{formatNumber(friend.coins)}</td>
 										</tr>
 									))
 								) : (
-									leaderboardData.map((leader) => (
+									leaderboardData.map((leader,index) => (
 										<tr key={leader.slNo}>
-											<td>{leader.slNo}</td>
-											<td>{leader.name}</td>
-											<td>{leader.invites}</td>
+											<td>{index+1}</td>
+											<td>{leader.username}</td>
+											<td>{leader.friends.length}</td>
 										</tr>
 									))
 								)}
